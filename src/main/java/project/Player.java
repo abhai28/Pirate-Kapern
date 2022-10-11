@@ -27,4 +27,10 @@ public class Player {
     public int getPlayerID(){
         return playerID;
     }
+    public void setPlayerDice(String [] d){
+
+    }
+    public String[] getPlayerDice(){
+
+    }
 }
