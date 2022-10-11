@@ -34,9 +34,9 @@ public class Player {
         return dice;
     }
     public void setScore(int s){
-
+        score = s;
     }
     public int getScore(){
-
+        return score;
     }
 }
