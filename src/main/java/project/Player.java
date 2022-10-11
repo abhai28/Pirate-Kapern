@@ -25,6 +25,6 @@ public class Player {
         return fortuneCard;
     }
     public int getPlayerID(){
-        return -1;
+        return playerID;
     }
 }
