@@ -1,10 +1,11 @@
 package project;
 
 public class Player {
-    String fortuneCard;
-    int playerID;
-    String[] dice;
-    int score;
+    private String fortuneCard;
+    private int playerID;
+    private String[] dice;
+    private int score;
+
     public Player(){
         fortuneCard = "";
         playerID = 1;
@@ -22,5 +23,8 @@ public class Player {
     }
     public String getFortuneCard(){
         return fortuneCard;
+    }
+    public int getPlayerID(){
+        return -1;
     }
 }

@@ -11,4 +11,7 @@ public class PlayerTest extends TestCase{
 
         assertEquals("Captain",p.getFortuneCard());
     }
+    public void testGetPlayerID(){
+        assertEquals(1,p.getPlayerID());
+    }
 }
