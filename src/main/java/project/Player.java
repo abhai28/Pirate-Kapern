@@ -28,9 +28,9 @@ public class Player {
         return playerID;
     }
     public void setPlayerDice(String [] d){
-
+        dice = d;
     }
     public String[] getPlayerDice(){
-
+        return dice;
     }
 }
