@@ -21,4 +21,8 @@ public class PlayerTest extends TestCase{
         p.setPlayerDice(dice);
         Assert.assertArrayEquals(dice,p.getPlayerDice());
     }
+    public void testPlayerScoreValue(){
+        p.setScore(300);
+        assertEquals(300,p.getScore());
+    }
 }

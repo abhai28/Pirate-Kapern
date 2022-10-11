@@ -33,4 +33,10 @@ public class Player {
     public String[] getPlayerDice(){
         return dice;
     }
+    public void setScore(int s){
+
+    }
+    public int getScore(){
+
+    }
 }
