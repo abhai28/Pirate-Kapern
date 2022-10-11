@@ -18,9 +18,9 @@ public class Player {
         score = 0;
     }
     public void setFortuneCard(String f){
-
+        fortuneCard = f;
     }
     public String getFortuneCard(){
-        return"";
+        return fortuneCard;
     }
 }
