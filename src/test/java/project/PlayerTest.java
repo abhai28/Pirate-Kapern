@@ -2,6 +2,9 @@ package project;
 import junit.framework.TestCase;
 import org.junit.Assert;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class PlayerTest extends TestCase{
     Player p;
     public PlayerTest(){
@@ -17,9 +20,11 @@ public class PlayerTest extends TestCase{
         assertEquals(1,p.getPlayerID());
     }
     public void testPlayerDiceValue(){
-        String[] dice = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+
         p.setPlayerDice(dice);
-        Assert.assertArrayEquals(dice,p.getPlayerDice());
+        assertEquals(dice, p.getPlayerDice());
     }
     public void testPlayerScoreValue(){
         p.setScore(300);

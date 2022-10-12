@@ -1,21 +1,23 @@
 package project;
 
+import java.util.ArrayList;
+
 public class Player {
     private String fortuneCard;
     private int playerID;
-    private String[] dice;
+    private ArrayList<String> dice;
     private int score;
 
     public Player(){
         fortuneCard = "";
         playerID = 1;
-        dice = new String[8];
+        dice = new ArrayList<>();
         score = 0;
     }
     public Player(int id){
         fortuneCard = "";
         playerID = id;
-        dice = new String[8];
+        dice = new ArrayList<>();
         score = 0;
     }
     public void setFortuneCard(String f){
@@ -27,10 +29,10 @@ public class Player {
     public int getPlayerID(){
         return playerID;
     }
-    public void setPlayerDice(String [] d){
+    public void setPlayerDice(ArrayList<String> d){
         dice = d;
     }
-    public String[] getPlayerDice(){
+    public ArrayList<String> getPlayerDice(){
         return dice;
     }
     public void setScore(int s){
