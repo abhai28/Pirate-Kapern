@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
+
+    public void shuffleDeck(){
+
+    }
+
     public void populateDeck(){
         Fortune f;
         f = new Fortune("Treasure Chest",0);

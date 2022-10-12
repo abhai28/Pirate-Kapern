@@ -13,4 +13,9 @@ public class GameTest extends TestCase{
         assertEquals("Treasure Chest", game.fortuneCards.get(0).getName());
     }
 
+    public void testShuffleDeck(){
+        String n = game.fortuneCards.get(0).getName();
+        game.shuffleDeck();
+        assertEquals(n,game.fortuneCards.get(0).getName());
+    }
 }
