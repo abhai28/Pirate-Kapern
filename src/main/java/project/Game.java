@@ -25,6 +25,10 @@ public class Game {
         Collections.shuffle(fortuneCards);
     }
     public void reroll(Player p, int diceNum){
+        String[] values = {"Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
+        Random rand = new Random();
+        p.setPlayerD(faceValues.get(rand.nextInt(faceValues.size())),diceNum);
 
     }
     public void populateDeck(){
