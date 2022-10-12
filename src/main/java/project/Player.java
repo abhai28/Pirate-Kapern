@@ -29,8 +29,11 @@ public class Player {
     public int getPlayerID(){
         return playerID;
     }
-    public void setPlayerDice(ArrayList<String> d){
+    public void setPlayerDices(ArrayList<String> d){
         dice = d;
+    }
+    public void setPlayerD(String v, int i){
+
     }
     public ArrayList<String> getPlayerDice(){
         return dice;
