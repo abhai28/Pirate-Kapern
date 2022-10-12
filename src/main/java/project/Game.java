@@ -3,8 +3,52 @@ package project;
 import java.util.ArrayList;
 
 public class Game {
-    ArrayList<Fortune> fortuneCards = new ArrayList<>(35);
+    ArrayList<Fortune> fortuneCards = new ArrayList<>();
     public void populateDeck(){
-
+        Fortune f;
+        f = new Fortune("Treasure Chest",0);
+        for(int i=0;i<4;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Sorceress",0);
+        for(int i=0;i<4;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Captain",0);
+        for(int i=0;i<4;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Monkey Business",0);
+        for(int i=0;i<4;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Diamond",0);
+        for(int i=0;i<4;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Coin",0);
+        for(int i=0;i<4;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Skulls",2);
+        for(int i=0;i<2;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Skulls",1);
+        for(int i=0;i<3;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Sea Battle",2);
+        for(int i=0;i<2;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Sorceress",3);
+        for(int i=0;i<2;i++){
+            fortuneCards.add(f);
+        }
+        f = new Fortune("Sorceress",4);
+        for(int i=0;i<2;i++){
+            fortuneCards.add(f);
+        }
     }
 }
