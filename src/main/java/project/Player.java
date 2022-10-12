@@ -33,7 +33,7 @@ public class Player {
         dice = d;
     }
     public void setPlayerD(String v, int i){
-
+        dice.set(i,v);
     }
     public ArrayList<String> getPlayerDice(){
         return dice;
