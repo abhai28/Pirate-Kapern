@@ -1,12 +1,13 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
 
     public void shuffleDeck(){
-
+        Collections.shuffle(fortuneCards);
     }
 
     public void populateDeck(){

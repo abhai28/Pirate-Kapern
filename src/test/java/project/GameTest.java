@@ -14,8 +14,9 @@ public class GameTest extends TestCase{
     }
 
     public void testShuffleDeck(){
+        game.populateDeck();
         String n = game.fortuneCards.get(0).getName();
         game.shuffleDeck();
-        assertEquals(n,game.fortuneCards.get(0).getName());
+        assertNotSame(n,game.fortuneCards.get(0).getName());
     }
 }
