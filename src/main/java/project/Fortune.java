@@ -15,6 +15,6 @@ public class Fortune {
         return this.name;
     }
     public int getAmount(){
-        return 0;
+        return this.amount;
     }
 }
