@@ -30,4 +30,11 @@ public class GameTest extends TestCase{
         game.drawFortuneCard(p);
         assertNotSame("",p.getFortuneCard().getName());
     }
+    public void testReRoll(){
+        Player p = new Player(1);
+        game.rollDice(p);
+        String v = p.getPlayerDice().get(3);
+        game.reroll(p,3);
+        assertNotSame(v,p.getPlayerDice().get(3));
+    }
 }

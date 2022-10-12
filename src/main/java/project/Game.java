@@ -16,15 +16,17 @@ public class Game {
         for(int i=0;i<8;i++){
             playerDice.add(faceValues.get(rand.nextInt(faceValues.size())));
         }
-        p.setPlayerDice(playerDice);
+        p.setPlayerDices(playerDice);
     }
     public void drawFortuneCard(Player p){
-
+        p.setFortuneCard(fortuneCards.remove(0));
     }
     public void shuffleDeck(){
         Collections.shuffle(fortuneCards);
     }
+    public void reroll(Player p, int diceNum){
 
+    }
     public void populateDeck(){
         Fortune f;
         f = new Fortune("Treasure Chest",0);
