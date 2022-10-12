@@ -1,13 +1,22 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
 
     public void rollDice(Player p){
-
+        String[] values = {"Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
+        ArrayList<String> playerDice = new ArrayList<>();
+        Random rand = new Random();
+        for(int i=0;i<8;i++){
+            playerDice.add(faceValues.get(rand.nextInt(faceValues.size())));
+        }
+        p.setPlayerDice(playerDice);
     }
 
     public void shuffleDeck(){
