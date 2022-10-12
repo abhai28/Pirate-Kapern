@@ -5,16 +5,15 @@ public class GameTest extends TestCase{
 
     public GameTest(){
         game = new Game();
+        game.populateDeck();
     }
     public void testPopulateDeck(){
-        game.populateDeck();
         //test checks if the size of array is correct and if the first card matchs expected card
         assertEquals(35,game.fortuneCards.size());
         assertEquals("Treasure Chest", game.fortuneCards.get(0).getName());
     }
 
     public void testShuffleDeck(){
-        game.populateDeck();
         String n = game.fortuneCards.get(0).getName();
         game.shuffleDeck();
         assertNotSame(n,game.fortuneCards.get(0).getName());
@@ -24,5 +23,11 @@ public class GameTest extends TestCase{
         Player p = new Player(1);
         game.rollDice(p);
         assertEquals(8,p.getPlayerDice().size());
+    }
+
+    public void testDrawFortuneCard(){
+        Player p = new Player(1);
+        game.drawFortuneCard(p);
+        assertNotSame("",p.getFortuneCard().getName());
     }
 }

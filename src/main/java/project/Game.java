@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
-
+    ArrayList<Fortune> discardDeck = new ArrayList<>();
     public void rollDice(Player p){
         String[] values = {"Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
         ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
@@ -18,7 +18,9 @@ public class Game {
         }
         p.setPlayerDice(playerDice);
     }
+    public void drawFortuneCard(Player p){
 
+    }
     public void shuffleDeck(){
         Collections.shuffle(fortuneCards);
     }
