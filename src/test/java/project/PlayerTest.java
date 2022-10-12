@@ -12,9 +12,10 @@ public class PlayerTest extends TestCase{
     }
 
     public void testFortuneCardValue(){
-        p.setFortuneCard("Captain");
+        Fortune f = new Fortune("Captain",0);
+        p.setFortuneCard(f);
 
-        assertEquals("Captain",p.getFortuneCard());
+        assertEquals("Captain",p.getFortuneCard().getName());
     }
     public void testGetPlayerID(){
         assertEquals(1,p.getPlayerID());

@@ -3,27 +3,27 @@ package project;
 import java.util.ArrayList;
 
 public class Player {
-    private String fortuneCard;
+    private Fortune fortuneCard;
     private int playerID;
     private ArrayList<String> dice;
     private int score;
 
     public Player(){
-        fortuneCard = "";
+        fortuneCard = new Fortune();
         playerID = 1;
         dice = new ArrayList<>();
         score = 0;
     }
     public Player(int id){
-        fortuneCard = "";
+        fortuneCard = new Fortune();
         playerID = id;
         dice = new ArrayList<>();
         score = 0;
     }
-    public void setFortuneCard(String f){
+    public void setFortuneCard(Fortune f){
         fortuneCard = f;
     }
-    public String getFortuneCard(){
+    public Fortune getFortuneCard(){
         return fortuneCard;
     }
     public int getPlayerID(){
