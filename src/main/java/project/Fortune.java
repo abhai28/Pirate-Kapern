@@ -12,9 +12,9 @@ public class Fortune {
         this.amount = a;
     }
     public String getName(){
-
+        return this.name;
     }
     public int getAmount(){
-
+        return 0;
     }
 }
