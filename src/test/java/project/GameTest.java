@@ -6,5 +6,11 @@ public class GameTest extends TestCase{
     public GameTest(){
         game = new Game();
     }
+    public void testPopulateDeck(){
+        game.populateDeck();
+        //test checks if the size of array is correct and if the first card matchs expected card
+        assertEquals(35,game.fortuneCards.size());
+        assertEquals("Treasure Chest", game.fortuneCards.get(0).getName());
+    }
 
 }
