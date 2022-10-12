@@ -6,6 +6,10 @@ import java.util.Collections;
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
 
+    public void rollDice(Player p){
+
+    }
+
     public void shuffleDeck(){
         Collections.shuffle(fortuneCards);
     }

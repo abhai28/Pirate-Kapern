@@ -19,4 +19,10 @@ public class GameTest extends TestCase{
         game.shuffleDeck();
         assertNotSame(n,game.fortuneCards.get(0).getName());
     }
+
+    public void testRollDice(){
+        Player p = new Player(1);
+        game.rollDice(p);
+        assertEquals(8,p.getPlayerDice().size());
+    }
 }
