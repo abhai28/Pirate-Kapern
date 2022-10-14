@@ -22,7 +22,6 @@ public class PlayerTest extends TestCase{
     public void testPlayerDiceValue(){
         String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
-
         p.setPlayerDices(dice);
         assertEquals(dice, p.getPlayerDice());
     }

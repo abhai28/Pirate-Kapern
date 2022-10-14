@@ -31,6 +31,11 @@ public class Game {
         p.setPlayerD(faceValues.get(rand.nextInt(faceValues.size())),diceNum);
 
     }
+    public int calculateDiceScore(ArrayList<String> d){
+        return 0;
+    }
+
+
     public void populateDeck(){
         Fortune f;
         f = new Fortune("Treasure Chest",0);

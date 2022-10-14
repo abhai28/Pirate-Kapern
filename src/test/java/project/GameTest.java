@@ -1,5 +1,9 @@
 package project;
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class GameTest extends TestCase{
     Game game;
 
@@ -36,5 +40,16 @@ public class GameTest extends TestCase{
         String v = p.getPlayerDice().get(3);
         game.reroll(p,3);
         assertNotSame(v,p.getPlayerDice().get(3));
+    }
+    public void testCalculateDiceScore(){
+        Player p = new Player(1);
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        Fortune f = new Fortune("Treasure Chest",0);
+        p.setFortuneCard(f);
+
+        p.setScore(game.calculateDiceScore(p.getPlayerDice()));
+        assertEquals(600,p.getScore());
     }
 }
