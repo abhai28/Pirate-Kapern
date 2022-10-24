@@ -43,13 +43,13 @@ public class GameTest extends TestCase{
     }
     public void testCalculateDiceScore(){
         Player p = new Player(1);
-        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold","Diamond"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
         p.setPlayerDices(dice);
         Fortune f = new Fortune("Treasure Chest",0);
         p.setFortuneCard(f);
 
         p.setScore(game.calculateDiceScore(p.getPlayerDice()));
-        assertEquals(600,p.getScore());
+        assertEquals(300,p.getScore());
     }
 }

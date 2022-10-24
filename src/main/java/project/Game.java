@@ -1,9 +1,6 @@
 package project;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
@@ -32,7 +29,41 @@ public class Game {
 
     }
     public int calculateDiceScore(ArrayList<String> d){
-        return 0;
+        int totalScore = 0;
+        boolean notAll = true;
+        HashMap<String, Integer> tally = new HashMap<String, Integer>();
+        for(String v: d){
+            tally.merge(v,1,Integer::sum);
+        }
+
+        if(tally.containsKey("Diamond")){
+            totalScore+= 100*tally.get("Diamond");
+        }
+        if(tally.containsKey("Gold")){
+            totalScore+= 100*tally.get("Gold");
+        }
+
+        for(String key: tally.keySet()){
+            int num = tally.get(key);
+            switch (num) {
+                case 3 ->{
+                    totalScore += 100;
+                }
+                case 4 -> totalScore += 200;
+                case 5 -> totalScore += 500;
+                case 6 -> totalScore += 1000;
+                case 7 -> totalScore += 2000;
+                case 8 -> {
+                    totalScore += 4000;
+                    notAll = false;
+                }
+                default -> notAll = true;
+            }
+        }
+        if(!notAll){
+            totalScore+=500;
+        }
+        return totalScore;
     }
 
 

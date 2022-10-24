@@ -20,7 +20,7 @@ public class PlayerTest extends TestCase{
         assertEquals(1,p.getPlayerID());
     }
     public void testPlayerDiceValue(){
-        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold","Diamond"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
         p.setPlayerDices(dice);
         assertEquals(dice, p.getPlayerDice());
@@ -30,7 +30,7 @@ public class PlayerTest extends TestCase{
         assertEquals(300,p.getScore());
     }
     public void testSetPlayerD(){
-        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold","Diamond"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
         p.setPlayerDices(dice);
         p.setPlayerD("Skull",1);
