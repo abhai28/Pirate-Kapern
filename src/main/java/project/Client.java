@@ -16,10 +16,6 @@ public class Client {
             socket = new Socket("localhost", Config.GAME_SERVER_PORT_NUMBER);
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            //int playerId = dIn.readInt();
-            String test = (String)bufferedReader.readLine();
-            //System.out.println("Connected as " + playerId);
-            System.out.println(test);
 
 
         } catch (IOException ex) {
@@ -39,9 +35,26 @@ public class Client {
         }
     }
 
-    public void playGame(){
+    public void playGame() throws IOException {
+        System.out.println(bufferedReader.readLine());
+        while(socket.isConnected()){
+            System.out.println(bufferedReader.readLine());
+            System.out.println(bufferedReader.readLine());
 
+            break;
+        }
     }
+
+    public void writeToBuffer(String msg){
+        try {
+            bufferedWriter.write(msg);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String args[]) throws Exception {
         Client c = new Client();
         c.playGame();

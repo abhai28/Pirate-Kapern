@@ -24,12 +24,11 @@ public class Server {
                 Socket s = serverSocket.accept();
                 sockets.add(s);
                 try {
-                    System.out.println("Hello");
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
                     bufferedWriters.add(bufferedWriter);
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));
                     bufferedReaders.add(bufferedReader);
-                    Player newPlayer = new Player(i);
+                    Player newPlayer = new Player(i+1);
                     game.players.add(newPlayer);
                     i++;
                 } catch(IOException ex){

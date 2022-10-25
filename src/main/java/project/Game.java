@@ -14,7 +14,33 @@ public class Game {
     public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters){
         populateDeck();
         shuffleDeck();
-
+        for (BufferedWriter bufferedWriter : bufferedWriters) {
+            writeToBuffer(bufferedWriter, "Game Has Begun");
+        }
+        while (!determineWinners()) {
+            if (fortuneCards.size() <= 0) {
+                populateDeck();
+                shuffleDeck();
+            }
+            for (Player p : players) {
+                drawFortuneCard(p);
+                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Fortune Card: " + p.getFortuneCard().getName());
+            }
+            for (Player p : players) {
+                rollDice(p);
+                int m = 1;
+                StringBuilder dice = new StringBuilder();
+                for (String d : p.getPlayerDice()) {
+                    dice.append(m).append(": ").append(d).append(" ");
+                    m++;
+                }
+                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), dice.toString());
+                if(skullIsland()){
+                    
+                }
+            }
+            break;
+        }
     }
 
     //multiplayer write function
@@ -29,7 +55,12 @@ public class Game {
     }
 
     public boolean determineWinners(){
-
+        for(Player p : players){
+            if(p.getScore()>=3000){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void rollDice(Player p){
@@ -92,8 +123,8 @@ public class Game {
         return totalScore;
     }
 
-    public void skullIsland(){
-
+    public boolean skullIsland(){
+        return true;
     }
     public void populateDeck(){
         Fortune f;
