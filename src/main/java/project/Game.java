@@ -35,8 +35,8 @@ public class Game {
                     m++;
                 }
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), dice.toString());
-                if(skullIsland()){
-                    
+                if(skullIsland(p.getPlayerDice())){
+
                 }
             }
             break;
@@ -123,7 +123,7 @@ public class Game {
         return totalScore;
     }
 
-    public boolean skullIsland(){
+    public boolean skullIsland(ArrayList<String> d){
         return true;
     }
     public void populateDeck(){

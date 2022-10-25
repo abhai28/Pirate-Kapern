@@ -64,4 +64,13 @@ public class GameTest extends TestCase{
         game.players.add(p3);
         assertTrue(game.determineWinners());
     }
+
+    public void testSkullIsland(){
+        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> trueTest = new ArrayList<>(Arrays.asList(values));
+        values = new String[]{"Skull", "Monkey", "Monkey", "Sword", "Parrot", "Skull", "Gold", "Diamond"};
+        ArrayList<String> falseTest = new ArrayList<>(Arrays.asList(values));
+        assertTrue(game.skullIsland(trueTest));
+        assertFalse(game.skullIsland(falseTest));
+    }
 }
