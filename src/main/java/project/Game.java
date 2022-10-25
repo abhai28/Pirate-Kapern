@@ -1,10 +1,35 @@
 package project;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.*;
 
 public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
     ArrayList<Fortune> discardDeck = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<>();
+    //main game function
+    public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters){
+        populateDeck();
+        shuffleDeck();
+        for(int i=0; i<bufferedWriters.size();i++){
+            writeToBuffer(bufferedWriters.get(i),"Hello player: "+players.get(i).getPlayerID());
+        }
+    }
+
+    //multiplayer write function
+    public void writeToBuffer(BufferedWriter buffer, String msg){
+        try {
+            buffer.write(msg);
+            buffer.newLine();
+            buffer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void rollDice(Player p){
         String[] values = {"Monkey","Sword","Parrot","Skull","Gold Coin","Diamond"};
         ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
@@ -35,7 +60,6 @@ public class Game {
         for(String v: d){
             tally.merge(v,1,Integer::sum);
         }
-
         if(tally.containsKey("Diamond")){
             totalScore+= 100*tally.get("Diamond");
         }
@@ -66,7 +90,9 @@ public class Game {
         return totalScore;
     }
 
+    public void skullIsland(){
 
+    }
     public void populateDeck(){
         Fortune f;
         f = new Fortune("Treasure Chest",0);
