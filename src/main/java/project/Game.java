@@ -124,7 +124,13 @@ public class Game {
     }
 
     public boolean skullIsland(ArrayList<String> d){
-        return true;
+        int count = 0;
+        for(String s : d){
+            if(s.equals("Skull")){
+                count ++;
+            }
+        }
+        return count >= 4;
     }
     public void populateDeck(){
         Fortune f;
