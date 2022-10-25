@@ -80,7 +80,13 @@ public class Game {
     }
 
     public String arrayDiceToString(Player p){
-        return "";
+        int m = 1;
+        StringBuilder dice = new StringBuilder();
+        for (String d : p.getPlayerDice()) {
+            dice.append(m).append(": ").append(d).append(" ");
+            m++;
+        }
+        return dice.toString();
     }
 
     //multiplayer write function
