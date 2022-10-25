@@ -52,4 +52,16 @@ public class GameTest extends TestCase{
         p.setScore(game.calculateDiceScore(p.getPlayerDice()));
         assertEquals(300,p.getScore());
     }
+    public void testDetermineWinners(){
+        Player p1 = new Player(1);
+        Player p2 = new Player(2);
+        Player p3 = new Player(3);
+        p1.setScore(300);
+        p2.setScore(3000);
+        p3.setScore(2999);
+        game.players.add(p1);
+        game.players.add(p2);
+        game.players.add(p3);
+        assertTrue(game.determineWinners());
+    }
 }

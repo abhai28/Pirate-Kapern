@@ -1,22 +1,16 @@
 package project;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Server {
-    private final int SERVER_PORT = 6667;
     private ServerSocket serverSocket;
     private final ArrayList<Socket> sockets = new ArrayList<>();
-    private final ArrayList<ObjectInputStream> inputStreams = new ArrayList<>();
-    private final ArrayList<ObjectOutputStream> outputStreams = new ArrayList<>();
     private final ArrayList<BufferedReader> bufferedReaders = new ArrayList<>();
     private final ArrayList<BufferedWriter> bufferedWriters = new ArrayList<>();
     private Game game;
-    private ArrayList<String> usernames = new ArrayList<>();
 
     private void initialize() {
         try {

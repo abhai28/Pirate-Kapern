@@ -14,9 +14,7 @@ public class Game {
     public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters){
         populateDeck();
         shuffleDeck();
-        for(int i=0; i<bufferedWriters.size();i++){
-            writeToBuffer(bufferedWriters.get(i),"Hello player: "+players.get(i).getPlayerID());
-        }
+
     }
 
     //multiplayer write function
@@ -28,6 +26,10 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean determineWinners(){
+
     }
 
     public void rollDice(Player p){
