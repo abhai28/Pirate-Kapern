@@ -73,4 +73,13 @@ public class GameTest extends TestCase{
         assertTrue(game.skullIsland(trueTest));
         assertFalse(game.skullIsland(falseTest));
     }
+
+    public void testArrayDiceToString(){
+        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        Player p = new Player(1);
+        p.setPlayerDices(dice);
+        String d = "1: Skull 2: Monkey 3: Monkey 4: Skull 5: Parrot 6: Skull 7: Gold 8: Skull";
+        assertEquals(d,game.arrayDiceToString(p));
+    }
 }
