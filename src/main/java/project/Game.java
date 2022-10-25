@@ -24,6 +24,7 @@ public class Game {
             }
             for (Player p : players) {
                 drawFortuneCard(p);
+                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Fortune");
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Fortune Card: " + p.getFortuneCard().getName());
             }
             for (Player p : players) {
@@ -34,13 +35,52 @@ public class Game {
                     dice.append(m).append(": ").append(d).append(" ");
                     m++;
                 }
+                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Dice");
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), dice.toString());
                 if(skullIsland(p.getPlayerDice())){
-
+                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Skull Island");
+                    playSkullIsland(p,bufferedReaders.get(p.getPlayerID() - 1),bufferedWriters.get(p.getPlayerID() - 1));
+                }
+                else{
+                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"no skull");
                 }
             }
             break;
         }
+    }
+
+    public void playSkullIsland(Player p,BufferedReader br, BufferedWriter bw){
+        try{
+            writeToBuffer(bw,"You have rolled 4 skulls and have entered The Island of Skulls.");
+            int count = 0;
+            for(String s : p.getPlayerDice()){
+                if(s.equals("Skull")){
+                    count ++;
+                }
+            }
+            boolean done = false;
+            while(!done){
+                writeToBuffer(bw,"Please enter the numeric value associated with your dice or enter any digit greater then 8 to exit.");
+                int val = br.read();
+                if(val<9){
+                    if(p.getPlayerDice().get(val).equals("Skull")){
+                        writeToBuffer(bw,"fail");
+                        writeToBuffer(bw,"You cannot chose a skull to reroll");
+                    }
+                    else{
+                        reroll(p,val);
+                        writeToBuffer(bw,"pass");
+                        //writeToBuffer(bw,);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String arrayDiceToString(Player p){
+        return "";
     }
 
     //multiplayer write function

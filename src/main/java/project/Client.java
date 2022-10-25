@@ -38,8 +38,32 @@ public class Client {
     public void playGame() throws IOException {
         System.out.println(bufferedReader.readLine());
         while(socket.isConnected()){
-            System.out.println(bufferedReader.readLine());
-            System.out.println(bufferedReader.readLine());
+            String scenario = bufferedReader.readLine();
+            switch (scenario){
+                case "Fortune":
+                    System.out.println(bufferedReader.readLine());
+                    break;
+                case"Dice":
+                    System.out.println(bufferedReader.readLine());
+                    String in = bufferedReader.readLine();
+                    if(in.equals("Skull Island")){
+                        boolean done = false;
+                        while(!done){
+                            System.out.println(bufferedReader.readLine());
+                            System.out.println(bufferedReader.readLine());
+                            int val = scanner.nextInt();
+                            bufferedWriter.write(val);
+                            in = bufferedReader.readLine();
+                            if(in.equals("fail")){
+                                System.out.println(bufferedReader.readLine());
+                            }
+                        }
+                    }
+                    else{
+
+                    }
+                    break;
+            }
 
             break;
         }
