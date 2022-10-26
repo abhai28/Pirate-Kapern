@@ -39,33 +39,37 @@ public class Client {
         System.out.println(bufferedReader.readLine());
         while(socket.isConnected()){
             String scenario = bufferedReader.readLine();
-            switch (scenario){
-                case "Fortune":
-                    System.out.println(bufferedReader.readLine());
-                    break;
-                case"Dice":
+            System.out.println(scenario);
+            System.out.println("Hello");
+            switch (scenario) {
+                case "Fortune" -> System.out.println(bufferedReader.readLine());
+                case "Dice" -> {
                     System.out.println(bufferedReader.readLine());
                     String in = bufferedReader.readLine();
-                    if(in.equals("Skull Island")){
+                    if (in.equals("Skull Island")) {
                         boolean done = false;
-                        while(!done){
-                            System.out.println(bufferedReader.readLine());
-                            System.out.println(bufferedReader.readLine());
-                            int val = scanner.nextInt();
-                            bufferedWriter.write(val);
-                            in = bufferedReader.readLine();
-                            if(in.equals("fail")){
+                        while (!done) {
+                            String exit = bufferedReader.readLine();
+                            if (exit.equals("done")) {
+                                done = true;
+                            } else {
+                                System.out.println(exit);
                                 System.out.println(bufferedReader.readLine());
+                                String val = scanner.nextLine();
+                                System.out.println(val);
+                                writeToBuffer(val);
+                                in = bufferedReader.readLine();
+                                if (in.equals("fail")) {
+                                    System.out.println(bufferedReader.readLine());
+                                } else {
+                                    System.out.println(bufferedReader.readLine());
+                                }
                             }
                         }
                     }
-                    else{
-
-                    }
-                    break;
+                }
+                default -> System.out.println("Game Over");
             }
-
-            break;
         }
     }
 

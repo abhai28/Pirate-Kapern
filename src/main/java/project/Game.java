@@ -29,15 +29,13 @@ public class Game {
             }
             for (Player p : players) {
                 rollDice(p);
-                int m = 1;
-                StringBuilder dice = new StringBuilder();
-                for (String d : p.getPlayerDice()) {
-                    dice.append(m).append(": ").append(d).append(" ");
-                    m++;
-                }
+                String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+                ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                p.setPlayerDices(dice);
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Dice");
-                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), dice.toString());
-                if(skullIsland(p.getPlayerDice())){
+                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), arrayDiceToString(p));
+
+                if(skullIsland(p)){
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Skull Island");
                     playSkullIsland(p,bufferedReaders.get(p.getPlayerID() - 1),bufferedWriters.get(p.getPlayerID() - 1));
                 }
@@ -51,27 +49,32 @@ public class Game {
 
     public void playSkullIsland(Player p,BufferedReader br, BufferedWriter bw){
         try{
-            writeToBuffer(bw,"You have rolled 4 skulls and have entered The Island of Skulls.");
             int count = 0;
             for(String s : p.getPlayerDice()){
                 if(s.equals("Skull")){
                     count ++;
                 }
             }
+            writeToBuffer(bw,"You have rolled "+ count +" skulls and have entered The Island of Skulls.");
             boolean done = false;
             while(!done){
                 writeToBuffer(bw,"Please enter the numeric value associated with your dice or enter any digit greater then 8 to exit.");
-                int val = br.read();
+                System.out.println("Hello");
+                int val = Integer.parseInt(br.readLine());
+                System.out.println(val);
                 if(val<9){
-                    if(p.getPlayerDice().get(val).equals("Skull")){
+                    if(p.getPlayerDice().get(val-1).equals("Skull")){
                         writeToBuffer(bw,"fail");
                         writeToBuffer(bw,"You cannot chose a skull to reroll");
                     }
                     else{
-                        reroll(p,val);
+                        reroll(p,val-1);
                         writeToBuffer(bw,"pass");
-                        //writeToBuffer(bw,);
+                        writeToBuffer(bw,arrayDiceToString(p));
                     }
+                }
+                else{
+                    writeToBuffer(bw,"done");
                 }
             }
         } catch (IOException e) {
@@ -169,9 +172,12 @@ public class Game {
         return totalScore;
     }
 
-    public boolean skullIsland(ArrayList<String> d){
+    public boolean skullIsland(Player p){
         int count = 0;
-        for(String s : d){
+        if(p.getFortuneCard().getName().equals("Skulls")){
+            count = p.getFortuneCard().getAmount();
+        }
+        for(String s : p.getPlayerDice()){
             if(s.equals("Skull")){
                 count ++;
             }

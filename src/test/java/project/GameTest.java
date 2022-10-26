@@ -70,10 +70,22 @@ public class GameTest extends TestCase{
         ArrayList<String> trueTest = new ArrayList<>(Arrays.asList(values));
         values = new String[]{"Skull", "Monkey", "Monkey", "Sword", "Parrot", "Skull", "Gold", "Diamond"};
         ArrayList<String> falseTest = new ArrayList<>(Arrays.asList(values));
-        assertTrue(game.skullIsland(trueTest));
-        assertFalse(game.skullIsland(falseTest));
+        Player p = new Player(1);
+        p.setPlayerDices(trueTest);
+        assertTrue(game.skullIsland(p));
+        p.setPlayerDices(falseTest);
+        assertFalse(game.skullIsland(p));
     }
+    public void testSkullsIsland2(){
 
+        String []values = {"Skull", "Monkey", "Monkey", "Sword", "Parrot", "Skull", "Gold", "Diamond"};
+        ArrayList<String> falseTest = new ArrayList<>(Arrays.asList(values));
+        Fortune f = new Fortune("Skulls",3);
+        Player p = new Player(1);
+        p.setFortuneCard(f);
+        p.setPlayerDices(falseTest);
+        assertTrue(game.skullIsland(p));
+    }
     public void testArrayDiceToString(){
         String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
