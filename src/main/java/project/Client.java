@@ -2,6 +2,7 @@ package project;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
@@ -53,7 +54,9 @@ public class Client {
                         if (exit.equals("done")) {
                             done = true;
                         } else {
+                            System.out.println("Hello1");
                             System.out.println(bufferedReader.readLine());
+                            System.out.println("Hello2");
                             String val = scanner.nextLine();
                             System.out.println(val);
                             writeToBuffer(val);
@@ -63,13 +66,37 @@ public class Client {
                                 String m = bufferedReader.readLine();
                                 if(m.equals("no")){
                                     System.out.println(bufferedReader.readLine());
+                                    done = true;
                                 }
+                            }
+                            else{
+                                done = true;
                             }
                         }
                     }
                 }
                 case "Reroll" -> {
-
+                    System.out.println(bufferedReader.readLine());
+                    String ans = scanner.nextLine();
+                    writeToBuffer(ans);
+                    String servReply = bufferedReader.readLine();
+                    if(servReply.equalsIgnoreCase("Yes")){
+                        int val = 1;
+                        while(val<9 &&val>0){
+                            System.out.println(bufferedReader.readLine());
+                            String userIn = scanner.nextLine();
+                            val = Integer.parseInt(userIn);
+                            writeToBuffer(userIn);
+                            String servRes = bufferedReader.readLine();
+                            if(servRes.equals("Skull")){
+                                System.out.println(bufferedReader.readLine());
+                            }
+                            else if(servRes.equals("fail")){
+                                System.out.println(bufferedReader.readLine());
+                                val = 1;
+                            }
+                        }
+                    }
                 }
                 case"Score"->{
                     String in = bufferedReader.readLine();

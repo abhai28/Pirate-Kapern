@@ -12,47 +12,99 @@ public class Game {
     ArrayList<Player> players = new ArrayList<>();
     //main game function
     public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters){
-        populateDeck();
-        shuffleDeck();
-        for (BufferedWriter bufferedWriter : bufferedWriters) {
-            writeToBuffer(bufferedWriter, "Game Has Begun");
-        }
-        while (!determineWinners()) {
-            if (fortuneCards.size() <= 0) {
-                populateDeck();
-                shuffleDeck();
-            }
-            for (Player p : players) {
-                drawFortuneCard(p);
-                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Fortune");
-                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Fortune Card: " + p.getFortuneCard().getName());
-            }
-            for (Player p : players) {
-                rollDice(p);
-                String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
-                ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
-                p.setPlayerDices(dice);
-                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Dice");
-                writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), arrayDiceToString(p));
 
-                if(skullIsland(p)){
-                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Skull Island");
-                    int numSkulls  = playSkullIsland(p,bufferedReaders.get(p.getPlayerID() - 1),bufferedWriters.get(p.getPlayerID() - 1));
-                    int scoreDeduction = skullIslandDeduction(p,numSkulls);
-                    for(int i=0;i<players.size();i++){
-                        if(i != p.getPlayerID()-1){
-                            players.get(i).setScore(players.get(i).getScore()-scoreDeduction);
-                            writeToBuffer(bufferedWriters.get(i),"Score");
-                            writeToBuffer(bufferedWriters.get(i),"Skull");
-                            writeToBuffer(bufferedWriters.get(i),"Player "+p.getPlayerID()+" entered skull island and due to this you have lost "+scoreDeduction+" points.");
-                            writeToBuffer(bufferedWriters.get(i),"Score: "+players.get(i).getScore());
+        try {
+            populateDeck();
+
+            shuffleDeck();
+            for (BufferedWriter bufferedWriter : bufferedWriters) {
+                writeToBuffer(bufferedWriter, "Game Has Begun");
+            }
+            while (!determineWinners()) {
+                if (fortuneCards.size() <= 0) {
+                    populateDeck();
+                    shuffleDeck();
+                }
+                for (Player p : players) {
+                    drawFortuneCard(p);
+                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Fortune");
+                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Fortune Card: " + p.getFortuneCard().getName());
+                }
+                for (Player p : players) {
+                    rollDice(p);
+                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Dice");
+                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), arrayDiceToString(p));
+                    if (skullIsland(p)) {
+                        writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Skull Island");
+                        int numSkulls = playSkullIsland(p, bufferedReaders.get(p.getPlayerID() - 1), bufferedWriters.get(p.getPlayerID() - 1));
+                        int scoreDeduction = skullIslandDeduction(p, numSkulls);
+                        for (int i = 0; i < players.size(); i++) {
+                            if (i != p.getPlayerID() - 1) {
+                                players.get(i).setScore(players.get(i).getScore() - scoreDeduction);
+                                if (players.get(i).getScore() < 0) {
+                                    players.get(i).setScore(0);
+                                }
+                                writeToBuffer(bufferedWriters.get(i), "Score");
+                                writeToBuffer(bufferedWriters.get(i), "Skull");
+                                writeToBuffer(bufferedWriters.get(i), "Player " + p.getPlayerID() + " entered skull island and due to this you have lost " + scoreDeduction + " points.");
+                                writeToBuffer(bufferedWriters.get(i), "Score: " + players.get(i).getScore());
+                            }
+                        }
+                    } else {
+                        BufferedWriter bw = bufferedWriters.get(p.getPlayerID() - 1);
+                        BufferedReader br = bufferedReaders.get(p.getPlayerID() - 1);
+                        writeToBuffer(bw, "Reroll");
+                        writeToBuffer(bw, "Would you like to reroll the dices? Yes or No");
+                        String ans = bufferedReaders.get(p.getPlayerID() - 1).readLine();
+                        if(ans.equalsIgnoreCase("yes")){
+                            writeToBuffer(bw,"Yes");
+                            int val = 1;
+                            ArrayList<Integer> values = new ArrayList<>();
+                            while(val<9 && val>0){
+                                writeToBuffer(bw,"Enter number associated to dice or any other number to exit.");
+                                String userIn = br.readLine();
+                                val = Integer.parseInt(userIn);
+                                if(values.contains(val)){
+                                    val = 1;
+                                }
+                                else if(val<9 && val>0){
+                                    if(p.getPlayerDice().get(val-1).equals("Skull")){
+                                        writeToBuffer(bw, "Skull");
+                                        writeToBuffer(bw,"You have entered a skull which cannot be rerolled.");
+                                    }
+                                    else{
+                                        writeToBuffer(bw,"pass");
+                                        values.add(val-1);
+                                        System.out.println(values.size());
+                                    }
+                                }
+                                else{
+                                    System.out.println("Hello");
+                                    if(values.size()<2){
+                                        writeToBuffer(bw,"fail");
+                                        writeToBuffer(bw,"You need to at least enter 2 dice to reroll");
+                                        val = 1;
+                                    }
+                                }
+                            }
+                            multiplayerReroll(p,values);
+                            writeToBuffer(bw,"Dice");
+                            writeToBuffer(bw,arrayDiceToString(p));
                         }
                     }
                 }
+                break;
             }
-            break;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+    public void multiplayerReroll(Player p, ArrayList<Integer> d){
+        for(int m : d){
+            reroll(p,m);
+        }
+    }
+
     public int skullIslandDeduction(Player p, int numSkulls){
         int score = numSkulls*100;
         if(p.getFortuneCard().getName().equals("Captain")){
@@ -101,7 +153,7 @@ public class Game {
                     }
                 }
                 else{
-                    writeToBuffer(bw,"fail");
+                    writeToBuffer(bw,"done");
                     done = true;
                 }
             }

@@ -121,7 +121,7 @@ public class GameTest extends TestCase{
         m.add(1);
         m.add(4);
         game.multiplayerReroll(p,m);
-        assertNotSame(dice.get(1),p.getPlayerDice().get(1));
-        assertNotSame(dice.get(4),p.getPlayerDice().get(4));
+        assertNotSame("Monkey",p.getPlayerDice().get(1));
+        assertNotSame("Parrot",p.getPlayerDice().get(4));
     }
 }
