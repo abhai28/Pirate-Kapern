@@ -104,12 +104,4 @@ public class GameTest extends TestCase{
         assertEquals("Skull",p.getPlayerDice().get(5));
         assertEquals("Skull",p.getPlayerDice().get(7));
     }
-    public void testSkullIslandReroll2(){
-        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
-        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
-        Player p = new Player(1);
-        p.setPlayerDices(dice);
-        game.skullIslandReroll(p);
-        assertEquals(dice,p.getPlayerDice());
-    }
 }

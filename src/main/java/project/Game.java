@@ -105,7 +105,11 @@ public class Game {
     }
 
     public void skullIslandReroll(Player p){
-
+        for(int i=0;i<p.getPlayerDice().size();i++){
+            if(!p.getPlayerDice().get(i).equals("Skull")){
+                reroll(p,i);
+            }
+        }
     }
 
     public void rollDice(Player p){
