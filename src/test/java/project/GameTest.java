@@ -1,6 +1,5 @@
 package project;
 import junit.framework.TestCase;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -93,5 +92,24 @@ public class GameTest extends TestCase{
         p.setPlayerDices(dice);
         String d = "1: Skull 2: Monkey 3: Monkey 4: Skull 5: Parrot 6: Skull 7: Gold 8: Skull ";
         assertEquals(d,game.arrayDiceToString(p));
+    }
+    public void testSkullIslandReroll(){
+        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        Player p = new Player(1);
+        p.setPlayerDices(dice);
+        game.skullIslandReroll(p);
+        assertEquals("Skull",p.getPlayerDice().get(0));
+        assertEquals("Skull",p.getPlayerDice().get(3));
+        assertEquals("Skull",p.getPlayerDice().get(5));
+        assertEquals("Skull",p.getPlayerDice().get(7));
+    }
+    public void testSkullIslandReroll2(){
+        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        Player p = new Player(1);
+        p.setPlayerDices(dice);
+        game.skullIslandReroll(p);
+        assertEquals(dice,p.getPlayerDice());
     }
 }

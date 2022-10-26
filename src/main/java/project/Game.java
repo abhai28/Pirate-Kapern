@@ -58,23 +58,15 @@ public class Game {
             writeToBuffer(bw,"You have rolled "+ count +" skulls and have entered The Island of Skulls.");
             boolean done = false;
             while(!done){
-                writeToBuffer(bw,"Please enter the numeric value associated with your dice or enter any digit greater then 8 to exit.");
-                System.out.println("Hello");
-                int val = Integer.parseInt(br.readLine());
-                System.out.println(val);
-                if(val<9){
-                    if(p.getPlayerDice().get(val-1).equals("Skull")){
-                        writeToBuffer(bw,"fail");
-                        writeToBuffer(bw,"You cannot chose a skull to reroll");
-                    }
-                    else{
-                        reroll(p,val-1);
-                        writeToBuffer(bw,"pass");
-                        writeToBuffer(bw,arrayDiceToString(p));
-                    }
+                writeToBuffer(bw,"If you would like to reroll enter Yes or else enter anything.");
+                String ans = br.readLine();
+                if(ans.equalsIgnoreCase("yes")){
+                    writeToBuffer(bw,"pass");
+
                 }
                 else{
-                    writeToBuffer(bw,"done");
+                    writeToBuffer(bw,"fail");
+                    done = true;
                 }
             }
         } catch (IOException e) {
@@ -110,6 +102,10 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public void skullIslandReroll(Player p){
+
     }
 
     public void rollDice(Player p){

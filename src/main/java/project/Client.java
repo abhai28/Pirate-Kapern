@@ -59,9 +59,7 @@ public class Client {
                                 System.out.println(val);
                                 writeToBuffer(val);
                                 in = bufferedReader.readLine();
-                                if (in.equals("fail")) {
-                                    System.out.println(bufferedReader.readLine());
-                                } else {
+                                if (in.equals("pass")) {
                                     System.out.println(bufferedReader.readLine());
                                 }
                             }
