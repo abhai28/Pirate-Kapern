@@ -40,30 +40,41 @@ public class Client {
         while(socket.isConnected()){
             String scenario = bufferedReader.readLine();
             System.out.println(scenario);
-            System.out.println("Hello");
             switch (scenario) {
                 case "Fortune" -> System.out.println(bufferedReader.readLine());
                 case "Dice" -> {
                     System.out.println(bufferedReader.readLine());
-                    String in = bufferedReader.readLine();
-                    if (in.equals("Skull Island")) {
-                        boolean done = false;
-                        while (!done) {
-                            String exit = bufferedReader.readLine();
-                            if (exit.equals("done")) {
-                                done = true;
-                            } else {
-                                System.out.println(exit);
+                }
+                case "Skull Island"->{
+                    boolean done = false;
+                    System.out.println(bufferedReader.readLine());
+                    while (!done) {
+                        String exit = bufferedReader.readLine();
+                        if (exit.equals("done")) {
+                            done = true;
+                        } else {
+                            System.out.println(bufferedReader.readLine());
+                            String val = scanner.nextLine();
+                            System.out.println(val);
+                            writeToBuffer(val);
+                            String in = bufferedReader.readLine();
+                            if (in.equals("pass")) {
                                 System.out.println(bufferedReader.readLine());
-                                String val = scanner.nextLine();
-                                System.out.println(val);
-                                writeToBuffer(val);
-                                in = bufferedReader.readLine();
-                                if (in.equals("pass")) {
+                                String m = bufferedReader.readLine();
+                                if(m.equals("no")){
                                     System.out.println(bufferedReader.readLine());
                                 }
                             }
                         }
+                    }
+                }
+                case "Reroll" -> {
+
+                }
+                case"Score"->{
+                    String in = bufferedReader.readLine();
+                    if(in.equals("Skull")){
+                        System.out.println(bufferedReader.readLine());
                     }
                 }
                 default -> System.out.println("Game Over");

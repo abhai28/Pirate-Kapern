@@ -37,17 +37,25 @@ public class Game {
 
                 if(skullIsland(p)){
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Skull Island");
-                    playSkullIsland(p,bufferedReaders.get(p.getPlayerID() - 1),bufferedWriters.get(p.getPlayerID() - 1));
-                }
-                else{
-                    writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"no skull");
+                    int numSkulls  = playSkullIsland(p,bufferedReaders.get(p.getPlayerID() - 1),bufferedWriters.get(p.getPlayerID() - 1));
+                    for(int i=0;i<players.size();i++){
+                        if(i != p.getPlayerID()-1){
+                            players.get(i).setScore(players.get(i).getScore()-scoreDeduction);
+                            writeToBuffer(bufferedWriters.get(i),"Score");
+                            writeToBuffer(bufferedWriters.get(i),"Skull");
+                            writeToBuffer(bufferedWriters.get(i),"Player "+p.getPlayerID()+" entered skull island and due to this you have lost "+scoreDeduction+" points.");
+                            writeToBuffer(bufferedWriters.get(i),"Score: "+players.get(i).getScore());
+                        }
+                    }
                 }
             }
             break;
         }
     }
-
-    public void playSkullIsland(Player p,BufferedReader br, BufferedWriter bw){
+    public int skullIslandDeduction(Player p, int numSkulls){
+        return 0;
+    }
+    public int playSkullIsland(Player p,BufferedReader br, BufferedWriter bw){
         try{
             int count = 0;
             for(String s : p.getPlayerDice()){
@@ -58,20 +66,52 @@ public class Game {
             writeToBuffer(bw,"You have rolled "+ count +" skulls and have entered The Island of Skulls.");
             boolean done = false;
             while(!done){
+                writeToBuffer(bw,"continue");
                 writeToBuffer(bw,"If you would like to reroll enter Yes or else enter anything.");
                 String ans = br.readLine();
+                int numSkulls = 0;
                 if(ans.equalsIgnoreCase("yes")){
                     writeToBuffer(bw,"pass");
-
+                    for(String s : p.getPlayerDice()){
+                        if(s.equals("Skull")){
+                            numSkulls++;
+                        }
+                    }
+                    skullIslandReroll(p);
+                    int newCount = 0;
+                    for(String s : p.getPlayerDice()){
+                        if(s.equals("Skull")){
+                            newCount++;
+                        }
+                    }
+                    writeToBuffer(bw,arrayDiceToString(p));
+                    if(newCount==numSkulls){
+                        writeToBuffer(bw,"no");
+                        writeToBuffer(bw,"No no skulls rolled");
+                        done = true;
+                        writeToBuffer(bw,"done");
+                    }
+                    else{
+                        writeToBuffer(bw,"yes");
+                    }
                 }
                 else{
                     writeToBuffer(bw,"fail");
                     done = true;
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        int numSkulls = 0;
+        for(String s : p.getPlayerDice()){
+            if(s.equals("Skull")){
+                numSkulls++;
+            }
+        }
+
+        return numSkulls;
     }
 
     public String arrayDiceToString(Player p){
