@@ -38,6 +38,7 @@ public class Game {
                 if(skullIsland(p)){
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Skull Island");
                     int numSkulls  = playSkullIsland(p,bufferedReaders.get(p.getPlayerID() - 1),bufferedWriters.get(p.getPlayerID() - 1));
+                    int scoreDeduction = skullIslandDeduction(p,numSkulls);
                     for(int i=0;i<players.size();i++){
                         if(i != p.getPlayerID()-1){
                             players.get(i).setScore(players.get(i).getScore()-scoreDeduction);
@@ -53,7 +54,11 @@ public class Game {
         }
     }
     public int skullIslandDeduction(Player p, int numSkulls){
-        return 0;
+        int score = numSkulls*100;
+        if(p.getFortuneCard().getName().equals("Captain")){
+            score = score *2;
+        }
+        return score;
     }
     public int playSkullIsland(Player p,BufferedReader br, BufferedWriter bw){
         try{

@@ -107,7 +107,7 @@ public class GameTest extends TestCase{
     public void testSkullIslandDeduction(){
         Player p = new Player(1);
         assertEquals(400, game.skullIslandDeduction(p,4));
-        Fortune f = new Fortune("Skulls",0);
+        Fortune f = new Fortune("Captain",0);
         p.setFortuneCard(f);
         assertEquals(800,game.skullIslandDeduction(p,4));
     }
