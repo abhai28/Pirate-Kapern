@@ -1,4 +1,5 @@
 package project;
+import io.cucumber.java.sl.In;
 import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,5 +111,17 @@ public class GameTest extends TestCase{
         Fortune f = new Fortune("Captain",0);
         p.setFortuneCard(f);
         assertEquals(800,game.skullIslandDeduction(p,4));
+    }
+    public void testMultiplayerReroll(){
+        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        Player p = new Player(1);
+        p.setPlayerDices(dice);
+        ArrayList<Integer> m = new ArrayList<>();
+        m.add(1);
+        m.add(4);
+        game.multiplayerReroll(p,m);
+        assertNotSame(dice.get(1),p.getPlayerDice().get(1));
+        assertNotSame(dice.get(4),p.getPlayerDice().get(4));
     }
 }
