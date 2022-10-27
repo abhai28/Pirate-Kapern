@@ -49,7 +49,7 @@ public class GameTest extends TestCase{
         Fortune f = new Fortune("Treasure Chest",0);
         p.setFortuneCard(f);
 
-        p.setScore(game.calculateDiceScore(p));
+        game.calculateDiceScore(p);
         assertEquals(300,p.getScore());
     }
     public void testCalculateDiceScoreDiamond(){
@@ -60,7 +60,7 @@ public class GameTest extends TestCase{
         Fortune f = new Fortune("Diamond",0);
         p.setFortuneCard(f);
 
-        p.setScore(game.calculateDiceScore(p));
+        game.calculateDiceScore(p);
         assertEquals(400,p.getScore());
     }
     public void testCalculateDiceScoreGold(){
@@ -71,7 +71,7 @@ public class GameTest extends TestCase{
         Fortune f = new Fortune("Gold",0);
         p.setFortuneCard(f);
 
-        p.setScore(game.calculateDiceScore(p));
+        game.calculateDiceScore(p);
         assertEquals(400,p.getScore());
     }
     public void testCalculateDiceScoreMonkey(){
@@ -82,7 +82,7 @@ public class GameTest extends TestCase{
         Fortune f = new Fortune("Diamond",0);
         p.setFortuneCard(f);
 
-        p.setScore(game.calculateDiceScore(p));
+        game.calculateDiceScore(p);
         assertEquals(400,p.getScore());
     }
     public void testDetermineWinners(){
@@ -156,5 +156,11 @@ public class GameTest extends TestCase{
         game.multiplayerReroll(p,m);
         assertNotSame("Monkey",p.getPlayerDice().get(1));
         assertNotSame("Parrot",p.getPlayerDice().get(4));
+    }
+    public void testArrayTreasureChestToString(){
+        String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        String d = "1: Skull 2: Monkey 3: Monkey 4: Skull 5: Parrot 6: Skull 7: Gold 8: Skull ";
+        assertEquals(d,game.arrayTreasureChestToString(dice));
     }
 }
