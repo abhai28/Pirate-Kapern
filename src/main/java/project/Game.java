@@ -232,11 +232,11 @@ public class Game {
         p.setPlayerD(faceValues.get(rand.nextInt(faceValues.size())),diceNum);
 
     }
-    public int calculateDiceScore(ArrayList<String> d){
+    public int calculateDiceScore(Player p){
         int totalScore = 0;
         boolean notAll = true;
         HashMap<String, Integer> tally = new HashMap<String, Integer>();
-        for(String v: d){
+        for(String v: p.getPlayerDice()){
             tally.merge(v,1,Integer::sum);
         }
         if(tally.containsKey("Diamond")){
@@ -245,7 +245,24 @@ public class Game {
         if(tally.containsKey("Gold")){
             totalScore+= 100*tally.get("Gold");
         }
-
+        if(p.getFortuneCard().getName().equals("Gold")){
+            totalScore+=100;
+            if(tally.containsKey("Gold")){
+                tally.merge("Gold",1,Integer::sum);
+            }
+        }
+        if(p.getFortuneCard().getName().equals("Diamond")){
+            totalScore+=100;
+            if(tally.containsKey("Diamond")){
+                tally.merge("Diamond",1,Integer::sum);
+            }
+        }
+        if(p.getFortuneCard().getName().equals("Monkey Business")){
+            if(tally.containsKey("Monkey") && tally.containsKey("Parrot")){
+                tally.merge("Monkey",tally.get("Parrot"),Integer::sum);
+                tally.remove("Parrot");
+            }
+        }
         for(String key: tally.keySet()){
             int num = tally.get(key);
             switch (num) {
@@ -303,7 +320,7 @@ public class Game {
         for(int i=0;i<4;i++){
             fortuneCards.add(f);
         }
-        f = new Fortune("Coin",0);
+        f = new Fortune("Gold",0);
         for(int i=0;i<4;i++){
             fortuneCards.add(f);
         }
