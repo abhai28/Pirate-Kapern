@@ -172,7 +172,51 @@ public class Game {
     }
 
     public void treasureChestScoreCalculator(Player p, ArrayList<String> t){
-
+        int totalScore = 0;
+        int totalDiceScored = 0;
+        HashMap<String, Integer> tally = new HashMap<String, Integer>();
+        for(String v: p.getPlayerDice()){
+            tally.merge(v,1,Integer::sum);
+        }
+        if(tally.containsKey("Diamond")){
+            totalScore+= 100*tally.get("Diamond");
+        }
+        if(tally.containsKey("Gold")){
+            totalScore+= 100*tally.get("Gold");
+        }
+        for(String key: tally.keySet()){
+            int num = tally.get(key);
+            switch (num) {
+                case 3 ->{
+                    totalScore += 100;
+                    totalDiceScored+=3;
+                }
+                case 4 -> {
+                    totalScore += 200;
+                    totalDiceScored+=4;
+                }
+                case 5 -> {
+                    totalScore += 500;
+                    totalDiceScored +=5;
+                }
+                case 6 -> {
+                    totalScore += 1000;
+                    totalDiceScored+=6;
+                }
+                case 7 -> {
+                    totalScore += 2000;
+                    totalDiceScored+=7;
+                }
+                case 8 -> {
+                    totalScore += 4000;
+                    totalDiceScored+=8;
+                }
+            }
+        }
+        if(totalDiceScored==8){
+            totalScore+=500;
+        }
+        p.setScore(totalScore);
     }
 
     public void multiplayerRe(Player p, BufferedReader br, BufferedWriter bw) throws IOException {
