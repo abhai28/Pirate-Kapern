@@ -40,7 +40,6 @@ public class Client {
         System.out.println(bufferedReader.readLine());
         while(socket.isConnected()){
             String scenario = bufferedReader.readLine();
-            System.out.println(scenario);
             switch (scenario) {
                 case "Fortune" -> System.out.println(bufferedReader.readLine());
                 case "Dice" -> {
@@ -89,6 +88,10 @@ public class Client {
                             if(servRes.equals("Skull")){
                                 System.out.println(bufferedReader.readLine());
                             }
+                            else if(servRes.equals("dq")){
+                                System.out.println(bufferedReader.readLine());
+                                val = 9;
+                            }
                             else if(servRes.equals("fail")){
                                 System.out.println(bufferedReader.readLine());
                                 val = 1;
@@ -100,6 +103,32 @@ public class Client {
                     String in = bufferedReader.readLine();
                     if(in.equals("Skull")){
                         System.out.println(bufferedReader.readLine());
+                        System.out.println(bufferedReader.readLine());
+                    }
+                    else{
+                        System.out.println(in);
+                    }
+                }
+                case"Treasure Chest" ->{
+                    System.out.println(bufferedReader.readLine());
+                    String ans = scanner.nextLine();
+                    writeToBuffer(ans);
+                    String servRes = bufferedReader.readLine();
+                    if(servRes.equals("yes")){
+                        int val = 1;
+                        while(val<9 && val>0){
+                            System.out.println(bufferedReader.readLine());
+                            String userAns = scanner.nextLine();
+                            writeToBuffer(userAns);
+                            val = Integer.parseInt(userAns);
+                            String cond = bufferedReader.readLine();
+                            if(cond.equals("Skull")){
+                                System.out.println(bufferedReader.readLine());
+                            }
+                            else{
+
+                            }
+                        }
                     }
                 }
                 case"Sorceress"->{
