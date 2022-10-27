@@ -49,8 +49,41 @@ public class GameTest extends TestCase{
         Fortune f = new Fortune("Treasure Chest",0);
         p.setFortuneCard(f);
 
-        p.setScore(game.calculateDiceScore(p.getPlayerDice()));
+        p.setScore(game.calculateDiceScore(p));
         assertEquals(300,p.getScore());
+    }
+    public void testCalculateDiceScoreDiamond(){
+        Player p = new Player(1);
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold","Diamond"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        Fortune f = new Fortune("Diamond",0);
+        p.setFortuneCard(f);
+
+        p.setScore(game.calculateDiceScore(p));
+        assertEquals(400,p.getScore());
+    }
+    public void testCalculateDiceScoreGold(){
+        Player p = new Player(1);
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold","Diamond"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        Fortune f = new Fortune("Gold",0);
+        p.setFortuneCard(f);
+
+        p.setScore(game.calculateDiceScore(p));
+        assertEquals(400,p.getScore());
+    }
+    public void testCalculateDiceScoreMonkey(){
+        Player p = new Player(1);
+        String[] values = {"Monkey","Monkey","Monkey","Sword","Parrot","Skull","Gold","Diamond"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        Fortune f = new Fortune("Diamond",0);
+        p.setFortuneCard(f);
+
+        p.setScore(game.calculateDiceScore(p));
+        assertEquals(400,p.getScore());
     }
     public void testDetermineWinners(){
         Player p1 = new Player(1);
