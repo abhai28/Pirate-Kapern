@@ -132,76 +132,29 @@ public class Game {
                                             writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
                                             String userIn = br.readLine();
                                             val = Integer.parseInt(userIn);
-                                            if(p.getPlayerDice().get(val-1).equals("Skull")){
-                                                writeToBuffer(bw,"Skull");
-                                                writeToBuffer(bw,"You have chosen a skull and that cannot be put in treasure chest!");
-                                            }
-                                            else{
-                                                treasureChest.add(p.getPlayerDice().remove(val-1));
-                                                writeToBuffer(bw,arrayDiceToString(p));
-                                            }
-                                        }
-                                    }
-                                }
-                                else{
-                                    writeToBuffer(bw, "Reroll");
-                                    writeToBuffer(bw, "Would you like to reroll the dices? Yes or No");
-                                    String ans = bufferedReaders.get(p.getPlayerID() - 1).readLine();
-                                    System.out.println(ans);
-                                    if (ans.equalsIgnoreCase("yes")) {
-                                        writeToBuffer(bw, "Yes");
-                                        int val = 1;
-                                        ArrayList<Integer> values = new ArrayList<>();
-                                        while (val < 9 && val > 0) {
-                                            writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
-                                            String userIn = br.readLine();
-                                            val = Integer.parseInt(userIn);
-                                            if (values.contains(val-1)) {
-                                                System.out.println("Hello");
-                                                writeToBuffer(bw,"fail");
-                                                writeToBuffer(bw,"You Entered a previously selected value");
-                                                val = 1;
-                                            } else if (val < 9 && val > 0) {
-                                                numSkulls = 0;
-                                                for(String d : p.getPlayerDice()){
-                                                    if(d.equals("Skull")){
-                                                        numSkulls++;
-                                                    }
-                                                }
-                                                if(p.getFortuneCard().getName().equals("Skulls")){
-                                                    numSkulls+=p.getFortuneCard().getAmount();
-                                                }
-                                                if(numSkulls>=3){
-                                                    writeToBuffer(bw,"dq");
-                                                    writeToBuffer(bw,"You have rolled "+numSkulls+" skulls, this disqualifies you!");
-                                                    val = 9;
-                                                }
-                                                else if (p.getPlayerDice().get(val - 1).equals("Skull")) {
-                                                    writeToBuffer(bw, "Skull");
-                                                    writeToBuffer(bw, "You have entered a skull which cannot be rerolled.");
-                                                } else {
-                                                    writeToBuffer(bw, "pass");
-                                                    values.add(val - 1);
-                                                }
-                                            } else {
-                                                if (values.size() < 2) {
-                                                    writeToBuffer(bw, "fail");
-                                                    writeToBuffer(bw, "You need to at least enter 2 dice to reroll");
-                                                    val = 1;
+                                            if(val<9&&val>0){
+                                                if(p.getPlayerDice().get(val-1).equals("Skull")){
+                                                    writeToBuffer(bw,"Skull");
+                                                    writeToBuffer(bw,"You have chosen a skull and that cannot be put in treasure chest!");
                                                 }
                                                 else{
-                                                    writeToBuffer(bw,"exit");
-                                                    val = 9;
+                                                    treasureChest.add(p.getPlayerDice().remove(val-1));
+                                                    writeToBuffer(bw,arrayDiceToString(p));
+                                                    writeToBuffer(bw,arrayTreasureChestToString(treasureChest));
                                                 }
                                             }
+                                            else{
+                                                writeToBuffer(bw,"exit");
+                                            }
                                         }
-                                        multiplayerReroll(p, values);
-                                        writeToBuffer(bw, "Dice");
-                                        writeToBuffer(bw, arrayDiceToString(p));
                                     }
                                     else{
                                         writeToBuffer(bw,"no");
                                     }
+                                    multiplayerRe(p,br,bw);
+                                }
+                                else{
+                                    multiplayerRe(p,br,bw);
                                 }
                                 calculateDiceScore(p);
                             }
@@ -217,9 +170,76 @@ public class Game {
             e.printStackTrace();
         }
     }
+
+    public void treasureChestScoreCalculator(Player p, ArrayList<String> t){
+
+    }
+
+    public void multiplayerRe(Player p, BufferedReader br, BufferedWriter bw) throws IOException {
+        writeToBuffer(bw, "Reroll");
+        writeToBuffer(bw, "Would you like to reroll the dices? Yes or No");
+        String ans = br.readLine();
+        System.out.println(ans);
+        if (ans.equalsIgnoreCase("yes")) {
+            writeToBuffer(bw, "Yes");
+            int val = 1;
+            ArrayList<Integer> values = new ArrayList<>();
+            while (val < 9 && val > 0) {
+                writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
+                String userIn = br.readLine();
+                val = Integer.parseInt(userIn);
+                if (values.contains(val-1)) {
+                    System.out.println("Hello");
+                    writeToBuffer(bw,"fail");
+                    writeToBuffer(bw,"You Entered a previously selected value");
+                    val = 1;
+                } else if (val < 9 && val > 0) {
+                    int numSkulls = 0;
+                    for(String d : p.getPlayerDice()){
+                        if(d.equals("Skull")){
+                            numSkulls++;
+                        }
+                    }
+                    if(p.getFortuneCard().getName().equals("Skulls")){
+                        numSkulls+=p.getFortuneCard().getAmount();
+                    }
+                    if(numSkulls>=3){
+                        writeToBuffer(bw,"dq");
+                        writeToBuffer(bw,"You have rolled "+numSkulls+" skulls, this disqualifies you!");
+                        val = 9;
+                    }
+                    else if (p.getPlayerDice().get(val - 1).equals("Skull")) {
+                        writeToBuffer(bw, "Skull");
+                        writeToBuffer(bw, "You have entered a skull which cannot be rerolled.");
+                    } else {
+                        writeToBuffer(bw, "pass");
+                        values.add(val - 1);
+                    }
+                } else {
+                    if (values.size() < 2) {
+                        writeToBuffer(bw, "fail");
+                        writeToBuffer(bw, "You need to at least enter 2 dice to reroll");
+                        val = 1;
+                    }
+                    else{
+                        writeToBuffer(bw,"exit");
+                        val = 9;
+                    }
+                }
+            }
+            multiplayerReroll(p, values);
+            writeToBuffer(bw, "Dice");
+            writeToBuffer(bw, arrayDiceToString(p));
+        }
+        else{
+            writeToBuffer(bw,"no");
+        }
+    }
+
     public String arrayTreasureChestToString(ArrayList<String> s){
         int m = 1;
         StringBuilder dice = new StringBuilder();
+        dice.append("Treasure Chest: ");
         for (String d : s) {
             dice.append(m).append(": ").append(d).append(" ");
             m++;

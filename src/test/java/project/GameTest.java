@@ -160,7 +160,18 @@ public class GameTest extends TestCase{
     public void testArrayTreasureChestToString(){
         String[] values = {"Skull","Monkey","Monkey","Skull","Parrot","Skull","Gold","Skull"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
-        String d = "1: Skull 2: Monkey 3: Monkey 4: Skull 5: Parrot 6: Skull 7: Gold 8: Skull ";
+        String d = "Treasure Chest: 1: Skull 2: Monkey 3: Monkey 4: Skull 5: Parrot 6: Skull 7: Gold 8: Skull ";
         assertEquals(d,game.arrayTreasureChestToString(dice));
+    }
+    public void testTreasureChestScoreCalculator(){
+        Player p = new Player(1);
+        String[] values = {"Monkey","Monkey","Monkey"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        Fortune f = new Fortune("Treasure Chest",0);
+        p.setFortuneCard(f);
+
+        game.calculateDiceScore(p);
+        assertEquals(100,p.getScore());
     }
 }

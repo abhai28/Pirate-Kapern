@@ -125,8 +125,12 @@ public class Client {
                             if(cond.equals("Skull")){
                                 System.out.println(bufferedReader.readLine());
                             }
+                            else if(cond.equals("exit")){
+                                val = 9;
+                            }
                             else{
-
+                                System.out.println(bufferedReader.readLine());
+                                System.out.println(bufferedReader.readLine());
                             }
                         }
                     }
