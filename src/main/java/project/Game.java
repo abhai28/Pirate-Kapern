@@ -53,6 +53,30 @@ public class Game {
                     } else {
                         BufferedWriter bw = bufferedWriters.get(p.getPlayerID() - 1);
                         BufferedReader br = bufferedReaders.get(p.getPlayerID() - 1);
+                        if(p.getFortuneCard().getName().equals("Sorceress")){
+                            boolean hasSkull = false;
+                            for(String d : p.getPlayerDice()){
+                                if (d.equals("Skull")) {
+                                    hasSkull = true;
+                                    break;
+                                }
+                            }
+                            if(hasSkull){
+                                writeToBuffer(bw,"Sorceress");
+                                writeToBuffer(bw,"Would you like to use your Sorceress card to reroll a skull? Yes or No");
+                                String ans = br.readLine();
+                                if(ans.equalsIgnoreCase("Yes")){
+                                    for(int i=0;i<p.getPlayerDice().size();i++){
+                                        if(p.getPlayerDice().get(i).equals("Skull")){
+                                            reroll(p,i);
+                                            break;
+                                        }
+                                    }
+                                    writeToBuffer(bw,"Dice");
+                                    writeToBuffer(bw,arrayDiceToString(p));
+                                }
+                            }
+                        }
                         writeToBuffer(bw, "Reroll");
                         writeToBuffer(bw, "Would you like to reroll the dices? Yes or No");
                         String ans = bufferedReaders.get(p.getPlayerID() - 1).readLine();

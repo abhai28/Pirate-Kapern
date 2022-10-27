@@ -54,9 +54,7 @@ public class Client {
                         if (exit.equals("done")) {
                             done = true;
                         } else {
-                            System.out.println("Hello1");
                             System.out.println(bufferedReader.readLine());
-                            System.out.println("Hello2");
                             String val = scanner.nextLine();
                             System.out.println(val);
                             writeToBuffer(val);
@@ -103,6 +101,11 @@ public class Client {
                     if(in.equals("Skull")){
                         System.out.println(bufferedReader.readLine());
                     }
+                }
+                case"Sorceress"->{
+                    System.out.println(bufferedReader.readLine());
+                    String ans = scanner.nextLine();
+                    writeToBuffer(ans);
                 }
                 default -> System.out.println("Game Over");
             }
