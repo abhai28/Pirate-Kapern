@@ -181,11 +181,14 @@ public class Game {
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Your turn has ended!");
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public Player getWinner(ArrayList<Player> p){
 
+    }
     public int seaBattleScore(Player p){
         int score = 0;
         int numSwords = 0;

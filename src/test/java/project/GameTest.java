@@ -213,4 +213,27 @@ public class GameTest extends TestCase{
         p.setFortuneCard(f);
         assertEquals(-500,game.seaBattleScore(p));
     }
+
+    public void testGetWinner(){
+        Player p1 = new Player(1);
+        Player p2 = new Player(2);
+        Player p3 = new Player(3);
+        p1.setScore(3000);
+        p2.setScore(2999);
+        p3.setScore(300);
+        ArrayList<Player> pList = new ArrayList<>();
+        pList.add(p1);
+        pList.add(p2);
+        pList.add(p3);
+        assertEquals(p1.getPlayerID(),game.getWinner(pList).getPlayerID());
+
+        p1.setScore(3000);
+        p2.setScore(3001);
+        p3.setScore(300);
+        pList = new ArrayList<>();
+        pList.add(p1);
+        pList.add(p2);
+        pList.add(p3);
+        assertEquals(p2.getPlayerID(),game.getWinner(pList).getPlayerID());
+    }
 }
