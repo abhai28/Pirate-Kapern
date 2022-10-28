@@ -633,16 +633,28 @@ public class Game {
                         totalScore += 2000;
                         totalDiceScored+=7;
                     }
-                    case 8 -> {
+                    case 8, 9 -> {
                         totalScore += 4000;
                         totalDiceScored+=8;
                     }
                 }
             }
-            if(totalDiceScored==8){
-                if(totalChest<9){
-                    totalScore+=500;
+            if(p.getFortuneCard().getName().equals("Gold")){
+                for(String key: tally.keySet()){
+                    if(key.equals("Gold")){
+                        tally.put("Gold",tally.get("Gold")-1);
+                    }
                 }
+            }
+            if(p.getFortuneCard().getName().equals("Diamond")){
+                for(String key: tally.keySet()){
+                    if(key.equals("Diamond")){
+                        tally.put("Diamond",tally.get("Diamond")-1);
+                    }
+                }
+            }
+            if(totalDiceScored==8){
+                totalScore+=500;
             }
         }
         if(p.getFortuneCard().getName().equals("Captain")){
