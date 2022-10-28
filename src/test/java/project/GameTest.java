@@ -235,5 +235,14 @@ public class GameTest extends TestCase{
         pList.add(p2);
         pList.add(p3);
         assertEquals(p2.getPlayerID(),game.getWinner(pList).getPlayerID());
+
+        p1.setScore(3000);
+        p2.setScore(3000);
+        p3.setScore(300);
+        pList = new ArrayList<>();
+        pList.add(p1);
+        pList.add(p2);
+        pList.add(p3);
+        assertEquals(p1.getPlayerID(),game.getWinner(pList).getPlayerID());
     }
 }

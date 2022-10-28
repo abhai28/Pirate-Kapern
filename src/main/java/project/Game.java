@@ -187,7 +187,14 @@ public class Game {
         }
     }
     public Player getWinner(ArrayList<Player> p){
-
+        Player pl = new Player(0);
+        pl.setScore(0);
+        for(Player p1 : p){
+            if(pl.getScore()<p1.getScore()){
+                pl = p1;
+            }
+        }
+        return pl;
     }
     public int seaBattleScore(Player p){
         int score = 0;
