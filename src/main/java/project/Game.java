@@ -175,7 +175,40 @@ public class Game {
     }
 
     public int seaBattleScore(Player p){
-        
+        int score = 0;
+        int numSwords = 0;
+        for(String s : p.getPlayerDice()){
+            if(s.equals("Sword")){
+                numSwords++;
+            }
+        }
+        switch (p.getFortuneCard().getAmount()){
+            case 2 ->{
+                if(numSwords>=2){
+                    score+=300;
+                }
+                else{
+                    score-=300;
+                }
+            }
+            case 3 ->{
+                if(numSwords>=3){
+                    score+=500;
+                }
+                else{
+                    score-=500;
+                }
+            }
+            case 4 ->{
+                if(numSwords>=4){
+                    score +=1000;
+                }
+                else{
+                    score-=1000;
+                }
+            }
+        }
+        return score;
     }
     public int treasureChestScoreCalculator(ArrayList<String> t){
         int totalScore = 0;
