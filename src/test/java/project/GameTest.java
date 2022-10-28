@@ -165,13 +165,44 @@ public class GameTest extends TestCase{
     }
     public void testTreasureChestScoreCalculator(){
         Player p = new Player(1);
-        String[] values = {"Monkey","Monkey","Monkey"};
+        String[] values = {"Monkey","Monkey","Monkey","Diamond"};
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
-        p.setPlayerDices(dice);
-        Fortune f = new Fortune("Treasure Chest",0);
-        p.setFortuneCard(f);
 
-        game.calculateDiceScore(p);
-        assertEquals(100,p.getScore());
+
+        assertEquals(200,game.treasureChestScoreCalculator(dice));
+    }
+
+    public void testSeaBattleScore(){
+        String[] values = {"Sword","Monkey","Monkey","Sword","Parrot","Skull","Gold","Skull"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        Player p = new Player(1);
+        p.setPlayerDices(dice);
+        Fortune f = new Fortune("Sea Battle",2);
+        p.setFortuneCard(f);
+        assertEquals(300,game.seaBattleScore(p));
+
+        values = new String[]{"Sword", "Sword", "Monkey", "Sword", "Parrot", "Skull", "Gold", "Skull"};
+        dice = new ArrayList<>(Arrays.asList(values));
+        p = new Player(1);
+        p.setPlayerDices(dice);
+        f = new Fortune("Sea Battle",3);
+        p.setFortuneCard(f);
+        assertEquals(500,game.seaBattleScore(p));
+
+        values = new String[]{"Sword", "Sword", "Sword", "Sword", "Parrot", "Skull", "Gold", "Skull"};
+        dice = new ArrayList<>(Arrays.asList(values));
+        p = new Player(1);
+        p.setPlayerDices(dice);
+        f = new Fortune("Sea Battle",4);
+        p.setFortuneCard(f);
+        assertEquals(1000,game.seaBattleScore(p));
+
+        values = new String[]{"Monkey", "Monkey", "Monkey", "Sword", "Parrot", "Skull", "Gold", "Skull"};
+        dice = new ArrayList<>(Arrays.asList(values));
+        p = new Player(1);
+        p.setPlayerDices(dice);
+        f = new Fortune("Sea Battle",3);
+        p.setFortuneCard(f);
+        assertEquals(-500,game.seaBattleScore(p));
     }
 }

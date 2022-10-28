@@ -33,7 +33,7 @@ public class Game {
                     drawFortuneCard(p);
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Fortune");
                     if(p.getPlayerID()==1){
-                        Fortune f = new Fortune("Sorceress",0);
+                        Fortune f = new Fortune("Treasure Chest",0);
                         p.setFortuneCard(f);
                     }
                     if(p.getFortuneCard().getAmount()>0){
@@ -119,26 +119,27 @@ public class Game {
                                 }
                             }
                             else {
+                                ArrayList<String> treasureChest = new ArrayList<>();
                                 if(p.getFortuneCard().getName().equals("Treasure Chest")){
                                     writeToBuffer(bw,"Treasure Chest");
                                     writeToBuffer(bw,"Since you have a treasure chest fortune card, would you like to place any dice in it? Yes or No");
                                     String ans = br.readLine();
-                                    ArrayList<String> treasureChest = new ArrayList<>();
                                     if(ans.equalsIgnoreCase("yes")){
                                         writeToBuffer(bw,"yes");
                                         int val = 1;
 
-                                        while(val<9 && val >0){
+                                        while(val<p.getPlayerDice().size()+1 && val >0){
                                             writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
                                             String userIn = br.readLine();
                                             val = Integer.parseInt(userIn);
-                                            if(val<9&&val>0){
+                                            if(val<p.getPlayerDice().size()+1&&val>0){
                                                 if(p.getPlayerDice().get(val-1).equals("Skull")){
                                                     writeToBuffer(bw,"Skull");
                                                     writeToBuffer(bw,"You have chosen a skull and that cannot be put in treasure chest!");
                                                 }
                                                 else{
                                                     treasureChest.add(p.getPlayerDice().remove(val-1));
+                                                    writeToBuffer(bw,"pass");
                                                     writeToBuffer(bw,arrayDiceToString(p));
                                                     writeToBuffer(bw,arrayTreasureChestToString(treasureChest));
                                                 }
@@ -152,6 +153,8 @@ public class Game {
                                         writeToBuffer(bw,"no");
                                     }
                                     multiplayerRe(p,br,bw);
+                                    int treasureScore = treasureChestScoreCalculator(treasureChest);
+                                    p.setScore(p.getScore()+treasureScore);
                                 }
                                 else{
                                     multiplayerRe(p,br,bw);
@@ -171,11 +174,14 @@ public class Game {
         }
     }
 
-    public void treasureChestScoreCalculator(Player p, ArrayList<String> t){
+    public int seaBattleScore(Player p){
+        
+    }
+    public int treasureChestScoreCalculator(ArrayList<String> t){
         int totalScore = 0;
         int totalDiceScored = 0;
         HashMap<String, Integer> tally = new HashMap<String, Integer>();
-        for(String v: p.getPlayerDice()){
+        for(String v: t){
             tally.merge(v,1,Integer::sum);
         }
         if(tally.containsKey("Diamond")){
@@ -216,7 +222,7 @@ public class Game {
         if(totalDiceScored==8){
             totalScore+=500;
         }
-        p.setScore(totalScore);
+        return totalScore;
     }
 
     public void multiplayerRe(Player p, BufferedReader br, BufferedWriter bw) throws IOException {
@@ -228,7 +234,7 @@ public class Game {
             writeToBuffer(bw, "Yes");
             int val = 1;
             ArrayList<Integer> values = new ArrayList<>();
-            while (val < 9 && val > 0) {
+            while (val < p.getPlayerDice().size()+1 && val > 0) {
                 writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
                 String userIn = br.readLine();
                 val = Integer.parseInt(userIn);
@@ -237,7 +243,7 @@ public class Game {
                     writeToBuffer(bw,"fail");
                     writeToBuffer(bw,"You Entered a previously selected value");
                     val = 1;
-                } else if (val < 9 && val > 0) {
+                } else if (val < p.getPlayerDice().size()+1 && val > 0) {
                     int numSkulls = 0;
                     for(String d : p.getPlayerDice()){
                         if(d.equals("Skull")){
@@ -551,10 +557,10 @@ public class Game {
             }
         }
         if(p.getFortuneCard().getName().equals("Captain")){
-            p.setScore(totalScore*2);
+            p.setScore((totalScore*2)+p.getScore());
         }
         else{
-            p.setScore(totalScore);
+            p.setScore(totalScore+p.getScore());
         }
     }
 
