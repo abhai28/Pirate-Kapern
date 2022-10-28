@@ -518,9 +518,11 @@ public class Game {
             if(tally.get("Skull")<3){
                 if(tally.containsKey("Diamond")){
                     totalScore+= 100*tally.get("Diamond");
+                    totalDiceScored+= tally.get("Diamond");
                 }
                 if(tally.containsKey("Gold")){
                     totalScore+= 100*tally.get("Gold");
+                    totalDiceScored+= tally.get("Gold");
                 }
                 if(p.getFortuneCard().getName().equals("Gold")){
                     totalScore+=100;
@@ -540,53 +542,82 @@ public class Game {
                         tally.remove("Parrot");
                     }
                 }
-                int totalChest = 0;
-                for(String key:tally.keySet()){
-                    totalChest+= tally.get(key);
-                }
 
                 for(String key: tally.keySet()){
                     int num = tally.get(key);
                     switch (num) {
                         case 3 ->{
                             totalScore += 100;
+                            if(key.equals("Gold")||key.equals("Diamond")){
+                                totalDiceScored-=3;
+                            }
                             totalDiceScored+=3;
                         }
                         case 4 -> {
                             totalScore += 200;
+                            if(key.equals("Gold")||key.equals("Diamond")){
+                                totalDiceScored-=4;
+                            }
                             totalDiceScored+=4;
                         }
                         case 5 -> {
                             totalScore += 500;
+                            if(key.equals("Gold")||key.equals("Diamond")){
+                                totalDiceScored-=5;
+                            }
                             totalDiceScored +=5;
                         }
                         case 6 -> {
                             totalScore += 1000;
+                            if(key.equals("Gold")||key.equals("Diamond")){
+                                totalDiceScored-=6;
+                            }
                             totalDiceScored+=6;
                         }
                         case 7 -> {
                             totalScore += 2000;
+                            if(key.equals("Gold")||key.equals("Diamond")){
+                                totalDiceScored-=7;
+                            }
                             totalDiceScored+=7;
                         }
-                        case 8 -> {
+                        case 8, 9 -> {
                             totalScore += 4000;
+                            if(key.equals("Gold")||key.equals("Diamond")){
+                                totalDiceScored-=8;
+                            }
                             totalDiceScored+=8;
                         }
                     }
                 }
-                if(totalDiceScored==8){
-                    if(totalChest<9){
-                        totalScore+=500;
+                if(p.getFortuneCard().getName().equals("Gold")){
+                    for(String key: tally.keySet()){
+                        if(key.equals("Gold")){
+                            tally.put("Gold",tally.get("Gold")-1);
+                        }
                     }
+                }
+                if(p.getFortuneCard().getName().equals("Diamond")){
+                    for(String key: tally.keySet()){
+                        if(key.equals("Diamond")){
+                            tally.put("Diamond",tally.get("Diamond")-1);
+                        }
+                    }
+                }
+
+                if(totalDiceScored==8){
+                    totalScore+=500;
                 }
             }
         }
         else{
             if(tally.containsKey("Diamond")){
                 totalScore+= 100*tally.get("Diamond");
+                totalDiceScored+= tally.get("Diamond");
             }
             if(tally.containsKey("Gold")){
                 totalScore+= 100*tally.get("Gold");
+                totalDiceScored+= tally.get("Gold");
             }
             if(p.getFortuneCard().getName().equals("Gold")){
                 totalScore+=100;
@@ -606,35 +637,50 @@ public class Game {
                     tally.remove("Parrot");
                 }
             }
-            int totalChest = 0;
-            for(String key : tally.keySet()){
-                totalChest += tally.get(key);
-            }
+
             for(String key: tally.keySet()){
                 int num = tally.get(key);
                 switch (num) {
                     case 3 ->{
                         totalScore += 100;
+                        if(key.equals("Gold")||key.equals("Diamond")){
+                            totalDiceScored-=3;
+                        }
                         totalDiceScored+=3;
                     }
                     case 4 -> {
                         totalScore += 200;
+                        if(key.equals("Gold")||key.equals("Diamond")){
+                            totalDiceScored-=4;
+                        }
                         totalDiceScored+=4;
                     }
                     case 5 -> {
                         totalScore += 500;
+                        if(key.equals("Gold")||key.equals("Diamond")){
+                            totalDiceScored-=5;
+                        }
                         totalDiceScored +=5;
                     }
                     case 6 -> {
                         totalScore += 1000;
+                        if(key.equals("Gold")||key.equals("Diamond")){
+                            totalDiceScored-=6;
+                        }
                         totalDiceScored+=6;
                     }
                     case 7 -> {
                         totalScore += 2000;
+                        if(key.equals("Gold")||key.equals("Diamond")){
+                            totalDiceScored-=7;
+                        }
                         totalDiceScored+=7;
                     }
                     case 8, 9 -> {
                         totalScore += 4000;
+                        if(key.equals("Gold")||key.equals("Diamond")){
+                            totalDiceScored-=8;
+                        }
                         totalDiceScored+=8;
                     }
                 }
@@ -653,6 +699,7 @@ public class Game {
                     }
                 }
             }
+
             if(totalDiceScored==8){
                 totalScore+=500;
             }
