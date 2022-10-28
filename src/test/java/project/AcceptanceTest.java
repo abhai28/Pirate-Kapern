@@ -111,4 +111,25 @@ public class AcceptanceTest extends TestCase{
         game.calculateDiceScore(p);
         assertEquals(800,p.getScore());
     }
+
+    public void testRow53(){
+        Player p = new Player(1);
+        Fortune f = new Fortune("Gold",0);
+        p.setFortuneCard(f);
+        String[] values = {"Parrot","Parrot","Skull","Skull","Sword","Sword","Monkey","Monkey"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+
+        ArrayList<Integer> diceNum = new ArrayList<>();
+        diceNum.add(0);
+        diceNum.add(1);
+        game.multiplayerReroll(p,diceNum);
+        values = new String[]{"Sword","Monkey","Skull","Skull","Sword","Sword","Monkey","Monkey"};
+        dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        game.calculateDiceScore(p);
+        assertEquals(300,p.getScore());
+    }
+
+    
 }
