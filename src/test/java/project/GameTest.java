@@ -204,5 +204,13 @@ public class GameTest extends TestCase{
         f = new Fortune("Sea Battle",3);
         p.setFortuneCard(f);
         assertEquals(-500,game.seaBattleScore(p));
+
+        values = new String[]{"Sword", "Skull", "Monkey", "Sword", "Parrot", "Skull", "Sword", "Skull"};
+        dice = new ArrayList<>(Arrays.asList(values));
+        p = new Player(1);
+        p.setPlayerDices(dice);
+        f = new Fortune("Sea Battle",3);
+        p.setFortuneCard(f);
+        assertEquals(-500,game.seaBattleScore(p));
     }
 }

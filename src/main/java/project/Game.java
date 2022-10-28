@@ -177,10 +177,19 @@ public class Game {
     public int seaBattleScore(Player p){
         int score = 0;
         int numSwords = 0;
+        int numSkulls = 0;
         for(String s : p.getPlayerDice()){
             if(s.equals("Sword")){
                 numSwords++;
             }
+        }
+        for(String s : p.getPlayerDice()){
+            if(s.equals("Skull")){
+                numSkulls++;
+            }
+        }
+        if(numSkulls>=3){
+            numSwords = 0;
         }
         switch (p.getFortuneCard().getAmount()){
             case 2 ->{
