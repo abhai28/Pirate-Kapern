@@ -40,6 +40,9 @@ public class Client {
         System.out.println(bufferedReader.readLine());
         while(socket.isConnected()){
             String scenario = bufferedReader.readLine();
+            if(scenario==null){
+                break;
+            }
             switch (scenario) {
                 case "Fortune" -> System.out.println(bufferedReader.readLine());
                 case "Dice" -> {
