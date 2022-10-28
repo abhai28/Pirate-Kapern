@@ -540,6 +540,11 @@ public class Game {
                         tally.remove("Parrot");
                     }
                 }
+                int totalChest = 0;
+                for(String key:tally.keySet()){
+                    totalChest+= tally.get(key);
+                }
+
                 for(String key: tally.keySet()){
                     int num = tally.get(key);
                     switch (num) {
@@ -570,7 +575,9 @@ public class Game {
                     }
                 }
                 if(totalDiceScored==8){
-                    totalScore+=500;
+                    if(totalChest<9){
+                        totalScore+=500;
+                    }
                 }
             }
         }
@@ -598,6 +605,10 @@ public class Game {
                     tally.merge("Monkey",tally.get("Parrot"),Integer::sum);
                     tally.remove("Parrot");
                 }
+            }
+            int totalChest = 0;
+            for(String key : tally.keySet()){
+                totalChest += tally.get(key);
             }
             for(String key: tally.keySet()){
                 int num = tally.get(key);
@@ -629,7 +640,9 @@ public class Game {
                 }
             }
             if(totalDiceScored==8){
-                totalScore+=500;
+                if(totalChest<9){
+                    totalScore+=500;
+                }
             }
         }
         if(p.getFortuneCard().getName().equals("Captain")){
