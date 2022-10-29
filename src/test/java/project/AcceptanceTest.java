@@ -640,5 +640,14 @@ public class AcceptanceTest extends TestCase{
         game.calculateDiceScore(p);
         assertEquals(800,p.getScore());
     }
-    
+    public void testRow121(){
+        Player p = new Player(1);
+        Fortune f = new Fortune("Sea Battle",3);
+        p.setFortuneCard(f);
+        String[] values = {"Sword","Skull","Skull","Sword","Skull","Skull","Sword","Sword"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        int score = game.seaBattleScore(p);
+        assertEquals(-500,score);
+    }
 }
