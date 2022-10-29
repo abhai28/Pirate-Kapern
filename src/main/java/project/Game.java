@@ -518,8 +518,12 @@ public class Game {
         if(p.getFortuneCard().getName().equals("Sea Battle")&&p.getFortuneCard().getAmount()==2){
             totalDiceScored+=2;
         }
+        int fcSkulls = 0;
+        if(p.getFortuneCard().getName().equals("Skulls")){
+            fcSkulls = p.getFortuneCard().getAmount();
+        }
         if(tally.containsKey("Skull")){
-            if(tally.get("Skull")<3){
+            if(tally.get("Skull")+fcSkulls<3){
                 if(tally.containsKey("Diamond")){
                     totalScore+= 100*tally.get("Diamond");
                     totalDiceScored+= tally.get("Diamond");
