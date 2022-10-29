@@ -54,6 +54,7 @@ public class Game {
                         multiplayerRe(p,br,bw);
                         int score = seaBattleScore(p);
                         p.setScore(Math.max(p.getScore() + score, 0));
+                        calculateDiceScore(p);
                     }
                     else {
                         rollDice(p);
@@ -513,6 +514,9 @@ public class Game {
         HashMap<String, Integer> tally = new HashMap<>();
         for(String v: p.getPlayerDice()){
             tally.merge(v,1,Integer::sum);
+        }
+        if(p.getFortuneCard().getName().equals("Sea Battle")&&p.getFortuneCard().getAmount()==2){
+            totalDiceScored+=2;
         }
         if(tally.containsKey("Skull")){
             if(tally.get("Skull")<3){
