@@ -574,4 +574,14 @@ public class AcceptanceTest extends TestCase{
         int deduct = game.skullIslandDeduction(p,5);
         assertEquals(500,deduct);
     }
+    public void testRow114(){
+        Player p = new Player(1);
+        Fortune f = new Fortune("Sea Battle",2);
+        p.setFortuneCard(f);
+        String[] values = {"Monkey","Skull","Skull","Monkey","Monkey","Monkey","Skull","Sword"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        int score = game.seaBattleScore(p);
+        assertEquals(-300,score);
+    }
 }
