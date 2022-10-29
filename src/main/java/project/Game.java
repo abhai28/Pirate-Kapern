@@ -174,11 +174,7 @@ public class Game {
                 }
             }
             Player winner = getWinner(players);
-            for(Player p : players){
-                if(p.getPlayerID()!=winner.getPlayerID()){
-                    lastTurn(bufferedReaders,bufferedWriters,winner);
-                }
-            }
+            lastTurn(bufferedReaders,bufferedWriters,winner);
             winner = getWinner(players);
             for(Player p: players){
                 writeToBuffer(bufferedWriters.get(p.getPlayerID()-1),"Dice");
