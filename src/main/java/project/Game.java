@@ -328,6 +328,7 @@ public class Game {
                             writeToBuffer(bw, "dq");
                             writeToBuffer(bw, "You have rolled " + numSkulls + " skulls, this disqualifies you!");
                             val = 9;
+                            cont = false;
                         } else if (p.getPlayerDice().get(val - 1).equals("Skull")) {
                             writeToBuffer(bw, "Skull");
                             writeToBuffer(bw, "You have entered a skull which cannot be rerolled.");
