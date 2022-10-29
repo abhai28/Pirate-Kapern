@@ -524,4 +524,14 @@ public class AcceptanceTest extends TestCase{
         game.calculateDiceScore(p);
         assertEquals(1200,p.getScore());
     }
+    public void testRow106(){
+        Player p = new Player(1);
+        Fortune f = new Fortune("Skulls",2);
+        p.setFortuneCard(f);
+        String[] values = {"Skull","Sword","Sword","Sword","Sword","Sword","Sword","Sword"};
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+        p.setPlayerDices(dice);
+        game.calculateDiceScore(p);
+        assertEquals(0,p.getScore());
+    }
 }
