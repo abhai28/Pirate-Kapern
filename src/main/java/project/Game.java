@@ -179,6 +179,7 @@ public class Game {
                     lastTurn(bufferedReaders,bufferedWriters,winner);
                 }
             }
+            winner = getWinner(players);
             for(Player p: players){
                 writeToBuffer(bufferedWriters.get(p.getPlayerID()-1),"Dice");
                 String winMsg = "The winner is player " + winner.getPlayerID()+ " with score "+winner.getScore()+".";
