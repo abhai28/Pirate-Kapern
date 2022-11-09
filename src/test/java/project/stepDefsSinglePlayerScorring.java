@@ -37,6 +37,26 @@ public class stepDefsSinglePlayerScorring extends TestCase{
         ArrayList<String> dice = new ArrayList<>(Arrays.asList(d.split(",")));
         p.setPlayerDices(dice);
     }
+    @And("Random reroll is {string}")
+    public void random_reroll(String values){
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(values.split(",")));
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for(String s : list){
+            indexes.add(Integer.parseInt(s));
+        }
+        game.multiplayerReroll(p,indexes);
+    }
+    @And("Reroll is {string} {string}")
+    public void fixed_reroll(String values, String index){
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(index.split(",")));
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for(String s : list){
+            indexes.add(Integer.parseInt(s));
+        }
+        ArrayList<String> dice = new ArrayList<>(Arrays.asList(values.split(",")));
+
+        game.fixed_reroll(p,indexes,dice);
+    }
     @Then("Score is {int}")
     public void score(int score) {
         game.calculateDiceScore(p);
