@@ -43,3 +43,20 @@ Feature: Single player plays game and rolls dice
       | 69       | "Gold"      | 0              | 500   | "Skull,Monkey,Monkey,Skull,Parrot,Sword,Diamond,Sword"    | "1,2"          | "Diamond,Diamond"      |
       | 70       | "Gold"      | 0              | 600   | "Skull,Monkey,Sword,Gold,Parrot,Gold,Sword,Sword"         | "2,6,7"        | "Gold,Monkey,Parrot"   |
       | 71       | "Diamond"   | 0              | 500   | "Skull,Monkey,Sword,Gold,Parrot,Gold,Sword,Sword"         | "2,6,7"        | "Gold,Monkey,Parrot"   |
+  @DoubleReroll
+  Scenario Outline: Player plays a roll and then rerolls twice and scores
+    Given Play a turn
+    When Get fortune card
+    And Roll dice
+    And Fortune card is <fortune> <fortune_values>
+    And Roll is <dice>
+    And Random reroll is <dice_index_1>
+    And Reroll is <reroll_dice_1> <dice_index_1>
+    And Random reroll is <dice_index_2>
+    And Reroll is <reroll_dice_2> <dice_index_2>
+    Then Score is <score>
+    Examples: Test Values
+      | test_row |fortune      | fortune_values | score | dice                                                      | dice_index_1     | reroll_dice_1            | dice_index_2    | reroll_dice_2      |
+      | 48       | "Gold"      | 0              | 0     | "Skull,Parrot,Parrot,Parrot,Parrot,Sword,Sword,Sword"     | "5,6,7"          | "Skull,Monkey,Monkey"    | "6,7"           | "Skull,Monkey"     |
+      | 50       | "Gold"      | 0              | 4800  | "Skull,Parrot,Gold,Gold,Parrot,Sword,Sword,Sword"         | "1,4"            | "Gold,Gold"              | "5,6,7"         | "Gold,Gold,Gold"   |
+      | 60       | "Gold"      | 0              | 600   | "Skull,Parrot,Parrot,Monkey,Monkey,Sword,Sword,Sword"     | "3,4"            | "Skull,Sword"            | "1,2"           | "Sword, Monkey"    |
