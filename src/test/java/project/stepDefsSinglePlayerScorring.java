@@ -62,4 +62,12 @@ public class stepDefsSinglePlayerScorring extends TestCase{
         game.calculateDiceScore(p);
         assertEquals(score, p.getScore());
     }
+    @And("Sorceress card is used")
+    public void use_sorceress(){
+        game.sorceressReroll(p);
+    }
+    @And("Fixed sorceress reroll {string} {int}")
+    public void fixedSorceressReroll(String d, int i) {
+        p.setPlayerD(d,i);
+    }
 }
