@@ -53,11 +53,23 @@ public class Game {
                         writeToBuffer(bw,arrayDiceToString(p));
                         multiplayerRe(p,br,bw);
                         int score = seaBattleScore(p);
-                        p.setScore(Math.max(p.getScore() + score, 0));
+                        if(p.getScore()-score<0){
+                            p.setScore(0);
+                        }
+                        else{
+                            p.setScore(p.getScore()+score);
+                        }
                         calculateDiceScore(p);
                     }
                     else {
                         rollDice(p);
+                        if(p.getPlayerID()==1){
+                            ArrayList<String> d = new ArrayList<>();
+                            for(int i=0;i<8;i++){
+                                d.add("Gold");
+                            }
+                            p.setPlayerDices(d);
+                        }
                         writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Dice");
                         writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), arrayDiceToString(p));
                         if (skullIsland(p)) {
@@ -92,12 +104,7 @@ public class Game {
                                     writeToBuffer(bw, "Would you like to use your Sorceress card to reroll a skull? Yes or No");
                                     String ans = br.readLine();
                                     if (ans.equalsIgnoreCase("Yes")) {
-                                        for (int i = 0; i < p.getPlayerDice().size(); i++) {
-                                            if (p.getPlayerDice().get(i).equals("Skull")) {
-                                                reroll(p, i);
-                                                break;
-                                            }
-                                        }
+                                        sorceressReroll(p);
                                         writeToBuffer(bw, "Dice");
                                         writeToBuffer(bw, arrayDiceToString(p));
                                     }
@@ -123,46 +130,7 @@ public class Game {
                                 }
                             }
                             else {
-                                ArrayList<String> treasureChest = new ArrayList<>();
-                                if(p.getFortuneCard().getName().equals("Treasure Chest")){
-                                    writeToBuffer(bw,"Treasure Chest");
-                                    writeToBuffer(bw,"Since you have a treasure chest fortune card, would you like to place any dice in it? Yes or No");
-                                    String ans = br.readLine();
-                                    if(ans.equalsIgnoreCase("yes")){
-                                        writeToBuffer(bw,"yes");
-                                        int val = 1;
-
-                                        while(val<p.getPlayerDice().size()+1 && val >0){
-                                            writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
-                                            String userIn = br.readLine();
-                                            val = Integer.parseInt(userIn);
-                                            if(val<p.getPlayerDice().size()+1&&val>0){
-                                                if(p.getPlayerDice().get(val-1).equals("Skull")){
-                                                    writeToBuffer(bw,"Skull");
-                                                    writeToBuffer(bw,"You have chosen a skull and that cannot be put in treasure chest!");
-                                                }
-                                                else{
-                                                    treasureChest.add(p.getPlayerDice().remove(val-1));
-                                                    writeToBuffer(bw,"pass");
-                                                    writeToBuffer(bw,arrayDiceToString(p));
-                                                    writeToBuffer(bw,arrayTreasureChestToString(treasureChest));
-                                                }
-                                            }
-                                            else{
-                                                writeToBuffer(bw,"exit");
-                                            }
-                                        }
-                                    }
-                                    else{
-                                        writeToBuffer(bw,"no");
-                                    }
-                                    multiplayerRe(p,br,bw);
-                                    int treasureScore = treasureChestScoreCalculator(treasureChest);
-                                    p.setScore(p.getScore()+treasureScore);
-                                }
-                                else{
-                                    multiplayerRe(p,br,bw);
-                                }
+                                multiplayerRe(p,br,bw);
                                 calculateDiceScore(p);
                             }
                         }
@@ -185,7 +153,14 @@ public class Game {
             e.printStackTrace();
         }
     }
-
+    public void sorceressReroll(Player p){
+        for (int i = 0; i < p.getPlayerDice().size(); i++) {
+            if (p.getPlayerDice().get(i).equals("Skull")) {
+                reroll(p, i);
+                break;
+            }
+        }
+    }
     public void lastTurn(ArrayList<BufferedReader> bufferedReaders,ArrayList<BufferedWriter> bufferedWriters,Player winner) throws IOException {
         if (fortuneCards.size() <= 0) {
             populateDeck();
@@ -218,7 +193,12 @@ public class Game {
                     writeToBuffer(bw, arrayDiceToString(p));
                     multiplayerRe(p, br, bw);
                     int score = seaBattleScore(p);
-                    p.setScore(Math.max(p.getScore() + score, 0));
+                    if(p.getScore()-score<0){
+                        p.setScore(0);
+                    }
+                    else{
+                        p.setScore(p.getScore()+score);
+                    }
                     calculateDiceScore(p);
                 } else {
                     rollDice(p);
@@ -285,42 +265,7 @@ public class Game {
                                 writeToBuffer(bw, "You have rolled " + numSkulls + " which has disqualified you.");
                             }
                         } else {
-                            ArrayList<String> treasureChest = new ArrayList<>();
-                            if (p.getFortuneCard().getName().equals("Treasure Chest")) {
-                                writeToBuffer(bw, "Treasure Chest");
-                                writeToBuffer(bw, "Since you have a treasure chest fortune card, would you like to place any dice in it? Yes or No");
-                                String ans = br.readLine();
-                                if (ans.equalsIgnoreCase("yes")) {
-                                    writeToBuffer(bw, "yes");
-                                    int val = 1;
-
-                                    while (val < p.getPlayerDice().size() + 1 && val > 0) {
-                                        writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
-                                        String userIn = br.readLine();
-                                        val = Integer.parseInt(userIn);
-                                        if (val < p.getPlayerDice().size() + 1 && val > 0) {
-                                            if (p.getPlayerDice().get(val - 1).equals("Skull")) {
-                                                writeToBuffer(bw, "Skull");
-                                                writeToBuffer(bw, "You have chosen a skull and that cannot be put in treasure chest!");
-                                            } else {
-                                                treasureChest.add(p.getPlayerDice().remove(val - 1));
-                                                writeToBuffer(bw, "pass");
-                                                writeToBuffer(bw, arrayDiceToString(p));
-                                                writeToBuffer(bw, arrayTreasureChestToString(treasureChest));
-                                            }
-                                        } else {
-                                            writeToBuffer(bw, "exit");
-                                        }
-                                    }
-                                } else {
-                                    writeToBuffer(bw, "no");
-                                }
-                                multiplayerRe(p, br, bw);
-                                int treasureScore = treasureChestScoreCalculator(treasureChest);
-                                p.setScore(p.getScore() + treasureScore);
-                            } else {
-                                multiplayerRe(p, br, bw);
-                            }
+                            multiplayerRe(p, br, bw);
                             calculateDiceScore(p);
                         }
                     }
@@ -330,6 +275,86 @@ public class Game {
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Dice");
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Your turn has ended!");
             }
+        }
+    }
+
+    public void treasureChest(Player p, BufferedWriter bw, BufferedReader br){
+        try{
+            writeToBuffer(bw, "Treasure Chest");
+            if(p.getTreasureChest().size()==0){
+                writeToBuffer(bw, "Since you have a treasure chest fortune card, would you like to place any dice in it? Yes or No");
+            }
+            else{
+                writeToBuffer(bw, "Would you like to add or remove from your treasure chest. Enter add or remove");
+            }
+            String ans = br.readLine();
+            if (ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("add")) {
+                writeToBuffer(bw, "yes");
+                addToTreasure(p,br,bw);
+            }
+            else if(ans.equalsIgnoreCase("remove")){
+                int val = 1;
+                while(val < p.getPlayerDice().size() + 1 && val > 0){
+                    if(p.getTreasureChest().size()==0){
+                        writeToBuffer(bw, "exit");
+                        writeToBuffer(bw, "Your treasure Chest is empty");
+                        val = 0;
+                    }
+                    else{
+                        writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
+                        String userIn = br.readLine();
+                        val = Integer.parseInt(userIn);
+                        if(val < p.getTreasureChest().size() + 1 && val > 0){
+                            writeToBuffer(bw,"pass");
+                            writeToBuffer(bw,arrayDiceToString(p));
+                            writeToBuffer(bw,arrayTreasureChestToString(p.getTreasureChest()));
+                        }
+                        else{
+                            writeToBuffer(bw,"exit");
+                        }
+                    }
+                }
+            }
+            else {
+                writeToBuffer(bw, "no");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addToTreasure(Player p,BufferedReader br, BufferedWriter bw){
+        try{
+            int val = 1;
+
+            while (val < p.getPlayerDice().size() + 1 && val > -1) {
+                if(p.getPlayerDice().size()<=0){
+                    writeToBuffer(bw, "exit");
+                    System.out.println("Hello1");
+                    val = -1;
+                }
+                else{
+                    writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
+                    String userIn = br.readLine();
+                    val = Integer.parseInt(userIn);
+                    if (val < p.getPlayerDice().size() + 1 && val > 0) {
+                        if (p.getPlayerDice().get(val - 1).equals("Skull")) {
+                            writeToBuffer(bw, "Skull");
+                            writeToBuffer(bw, "You have chosen a skull and that cannot be put in treasure chest!");
+                        } else {
+                            p.addTreasure(val - 1);
+                            writeToBuffer(bw, "pass");
+                            writeToBuffer(bw, arrayDiceToString(p));
+                            writeToBuffer(bw, arrayTreasureChestToString(p.getTreasureChest()));
+                            val = 0;
+                        }
+                    } else {
+                        writeToBuffer(bw, "exit");
+                        System.out.println("Hello2");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public Player getWinner(ArrayList<Player> p){
@@ -446,66 +471,80 @@ public class Game {
             }
             if(numSkulls>=3){
                 writeToBuffer(bw,"Dice");
-                writeToBuffer(bw,"You have rolled "+numSkulls+" skulls, this is had disqualified you");
+                writeToBuffer(bw,"You have rolled "+numSkulls+" skulls, this has disqualified you");
             }
-            writeToBuffer(bw, "Reroll");
-            writeToBuffer(bw, "Would you like to reroll the dices? Yes or No");
-            String ans = br.readLine();
-            if (ans.equalsIgnoreCase("yes")) {
-                writeToBuffer(bw, "Yes");
-                int val = 1;
-                ArrayList<Integer> values = new ArrayList<>();
-                while (val < p.getPlayerDice().size() + 1 && val > 0) {
-                    writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
-                    String userIn = br.readLine();
-                    val = Integer.parseInt(userIn);
-                    if (values.contains(val - 1)) {
-                        writeToBuffer(bw, "fail");
-                        writeToBuffer(bw, "You Entered a previously selected value");
-                        val = 1;
-                    } else if (val < p.getPlayerDice().size() + 1 && val > 0) {
-                        numSkulls = 0;
-                        for (String d : p.getPlayerDice()) {
-                            if (d.equals("Skull")) {
-                                numSkulls++;
+            if(p.getFortuneCard().getName().equals("Treasure Chest")){
+                treasureChest(p,bw,br);
+            }
+            if(p.getPlayerDice().size()>0){
+                writeToBuffer(bw, "Reroll");
+                writeToBuffer(bw, "Would you like to reroll the dices? Yes or No");
+                String ans = br.readLine();
+                if (ans.equalsIgnoreCase("yes")) {
+                    writeToBuffer(bw, "Yes");
+                    int val = 1;
+                    ArrayList<Integer> values = new ArrayList<>();
+                    while (val < p.getPlayerDice().size() + 1 && val > 0) {
+                        writeToBuffer(bw, "Enter number associated to dice or any other number to exit.");
+                        String userIn = br.readLine();
+                        val = Integer.parseInt(userIn);
+                        if (values.contains(val - 1)) {
+                            writeToBuffer(bw, "fail");
+                            writeToBuffer(bw, "You Entered a previously selected value");
+                            val = 1;
+                        } else if (val < p.getPlayerDice().size() + 1 && val > 0) {
+                            numSkulls = 0;
+                            for (String d : p.getPlayerDice()) {
+                                if (d.equals("Skull")) {
+                                    numSkulls++;
+                                }
+                            }
+                            if (p.getFortuneCard().getName().equals("Skulls")) {
+                                numSkulls += p.getFortuneCard().getAmount();
+                            }
+                            if (numSkulls >= 3) {
+                                writeToBuffer(bw, "dq");
+                                writeToBuffer(bw, "You have rolled " + numSkulls + " skulls, this disqualifies you!");
+                                val = 9;
+                                cont = false;
+                            } else if (p.getPlayerDice().get(val - 1).equals("Skull")) {
+                                writeToBuffer(bw, "Skull");
+                                writeToBuffer(bw, "You have entered a skull which cannot be rerolled.");
+                            } else {
+                                writeToBuffer(bw, "pass");
+                                values.add(val - 1);
+                            }
+                        } else {
+                            if (values.size() < 2) {
+                                writeToBuffer(bw, "fail");
+                                writeToBuffer(bw, "You need to at least enter 2 dice to reroll");
+                                val = 1;
+                            } else {
+                                writeToBuffer(bw, "exit");
+                                val = 9;
                             }
                         }
-                        if (p.getFortuneCard().getName().equals("Skulls")) {
-                            numSkulls += p.getFortuneCard().getAmount();
-                        }
-                        if (numSkulls >= 3) {
-                            writeToBuffer(bw, "dq");
-                            writeToBuffer(bw, "You have rolled " + numSkulls + " skulls, this disqualifies you!");
-                            val = 9;
-                            cont = false;
-                        } else if (p.getPlayerDice().get(val - 1).equals("Skull")) {
-                            writeToBuffer(bw, "Skull");
-                            writeToBuffer(bw, "You have entered a skull which cannot be rerolled.");
-                        } else {
-                            writeToBuffer(bw, "pass");
-                            values.add(val - 1);
-                        }
-                    } else {
-                        if (values.size() < 2) {
-                            writeToBuffer(bw, "fail");
-                            writeToBuffer(bw, "You need to at least enter 2 dice to reroll");
-                            val = 1;
-                        } else {
-                            writeToBuffer(bw, "exit");
-                            val = 9;
-                        }
                     }
+                    multiplayerReroll(p, values);
+                    writeToBuffer(bw, "Dice");
+                    writeToBuffer(bw, arrayDiceToString(p));
+                } else {
+                    writeToBuffer(bw, "no");
+                    cont = false;
                 }
-                multiplayerReroll(p, values);
-                writeToBuffer(bw, "Dice");
-                writeToBuffer(bw, arrayDiceToString(p));
-            } else {
-                writeToBuffer(bw, "no");
+            }
+            else{
                 cont = false;
             }
         }
     }
-
+    public void fixed_reroll(Player p, ArrayList<Integer> index, ArrayList<String> dice){
+        int i =0;
+        for(String d : dice){
+            p.setPlayerD(d,index.get(i));
+            i++;
+        }
+    }
     public String arrayTreasureChestToString(ArrayList<String> s){
         int m = 1;
         StringBuilder dice = new StringBuilder();
@@ -660,7 +699,9 @@ public class Game {
     public void calculateDiceScore(Player p){
         int totalScore = 0;
         int totalDiceScored = 0;
-
+        if(p.getFortuneCard().getName().equals("Treasure Chest")){
+            p.setScore(p.getScore()+treasureChestScoreCalculator(p.getTreasureChest()));
+        }
         HashMap<String, Integer> tally = new HashMap<>();
         for(String v: p.getPlayerDice()){
             tally.merge(v,1,Integer::sum);
