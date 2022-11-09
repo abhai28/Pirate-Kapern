@@ -1,6 +1,6 @@
 Feature: Single player plays game and rolls dice
   @SinglePlay
-  Scenario Outline: Player plays one roll and score
+  Scenario Outline: Player plays one roll and score. Test row: <test_row>
     Given Play a turn
     When Get fortune card
     And Roll dice
@@ -22,7 +22,7 @@ Feature: Single player plays game and rolls dice
       | 66       | "Sword,Sword,Sword,Sword,Sword,Sword,Sword,Sword"            | 9000    | "Captain"         | 0             |
       | 72       | "Skull,Skull,Gold,Gold,Monkey,Monkey,Monkey,Monkey"          | 600     | "Gold"            | 0             |
   @SingleReroll
-  Scenario Outline: Player plays a roll and then rerolls once and scores
+  Scenario Outline: Player plays a roll and then rerolls once and scores. Test row: <test_row>
     Given Play a turn
     When Get fortune card
     And Roll dice
@@ -44,7 +44,7 @@ Feature: Single player plays game and rolls dice
       | 70       | "Gold"      | 0              | 600   | "Skull,Monkey,Sword,Gold,Parrot,Gold,Sword,Sword"         | "2,6,7"        | "Gold,Monkey,Parrot"   |
       | 71       | "Diamond"   | 0              | 500   | "Skull,Monkey,Sword,Gold,Parrot,Gold,Sword,Sword"         | "2,6,7"        | "Gold,Monkey,Parrot"   |
   @DoubleReroll
-  Scenario Outline: Player plays a roll and then rerolls twice and scores
+  Scenario Outline: Player plays a roll and then rerolls twice and scores. Test row: <test_row>
     Given Play a turn
     When Get fortune card
     And Roll dice
