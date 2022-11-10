@@ -18,7 +18,10 @@ public class stepdefsNetworking extends TestCase{
     ArrayList<Socket> sockets = new ArrayList<>();
     ArrayList<BufferedReader> brs = new ArrayList<>();
     ArrayList<BufferedWriter> bws = new ArrayList<>();
-
+    @Given("Start server")
+    public void start_server(){
+        Server server = new Server();
+    }
     @And("Players are connected")
     public void connect_players(){
         try{

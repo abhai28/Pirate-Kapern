@@ -1,3 +1,4 @@
-Feature: Multiplayer testing
-  Scenario: run server
-    Given Players are connected
+#Feature: Multiplayer testing
+  #Scenario: run server
+   # Given Start server
+   # And Players are connected
