@@ -699,9 +699,6 @@ public class Game {
     public void calculateDiceScore(Player p){
         int totalScore = 0;
         int totalDiceScored = 0;
-        if(p.getFortuneCard().getName().equals("Treasure Chest")){
-            p.setScore(p.getScore()+treasureChestScoreCalculator(p.getTreasureChest()));
-        }
         HashMap<String, Integer> tally = new HashMap<>();
         for(String v: p.getPlayerDice()){
             tally.merge(v,1,Integer::sum);
@@ -715,6 +712,13 @@ public class Game {
         }
         if(tally.containsKey("Skull")){
             if(tally.get("Skull")+fcSkulls<3){
+                for(int i = p.getTreasureChest().size()-1;i>=0;i--){
+                    p.removeTreasure(i);
+                }
+                tally = new HashMap<>();
+                for(String v: p.getPlayerDice()){
+                    tally.merge(v,1,Integer::sum);
+                }
                 if(tally.containsKey("Diamond")){
                     totalScore+= 100*tally.get("Diamond");
                     totalDiceScored+= tally.get("Diamond");
@@ -808,8 +812,20 @@ public class Game {
                     totalScore+=500;
                 }
             }
+            else{
+                if(p.getFortuneCard().getName().equals("Treasure Chest")){
+                    p.setScore(p.getScore()+treasureChestScoreCalculator(p.getTreasureChest()));
+                }
+            }
         }
         else{
+            for(int i = p.getTreasureChest().size()-1;i>=0;i--){
+                p.removeTreasure(i);
+            }
+            tally = new HashMap<>();
+            for(String v: p.getPlayerDice()){
+                tally.merge(v,1,Integer::sum);
+            }
             if(tally.containsKey("Diamond")){
                 totalScore+= 100*tally.get("Diamond");
                 totalDiceScored+= tally.get("Diamond");
