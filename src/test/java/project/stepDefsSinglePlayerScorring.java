@@ -70,4 +70,31 @@ public class stepDefsSinglePlayerScorring extends TestCase{
     public void fixedSorceressReroll(String d, int i) {
         p.setPlayerD(d,i);
     }
+    @And("Put {string} in chest")
+    public void add_treasure(String index){
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(index.split(",")));
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for(String s : list){
+            indexes.add(Integer.parseInt(s));
+        }
+        for(int i=indexes.size()-1;i>=0;i--){
+            p.addTreasure(indexes.get(i));
+        }
+    }
+    @Then("Check if treasure added {int}")
+    public void check_treasure(int amount){
+        assertEquals(amount, p.getTreasureChest().size());
+        assertEquals(8-amount,p.getPlayerDice().size());
+    }
+    @And("Takeout {string}")
+    public void remove_treasure(String index){
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(index.split(",")));
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for(String s : list){
+            indexes.add(Integer.parseInt(s));
+        }
+        for(int i=indexes.size()-1;i>=0;i--){
+            p.removeTreasure(indexes.get(i));
+        }
+    }
 }
