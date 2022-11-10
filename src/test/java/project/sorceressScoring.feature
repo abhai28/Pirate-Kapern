@@ -1,4 +1,4 @@
-Feature: Miscellaneous Fortune Cards and Full Chest bonus
+Feature: Sorceress scoring
   @Sorceress
   Scenario: Test Row 77
     Given Play a turn
