@@ -41,8 +41,8 @@ public class Server {
         }
     }
 
-    private void startGame(){
-        game.start(sockets,bufferedReaders,bufferedWriters);
+    private void startGame(String rig){
+        game.start(sockets,bufferedReaders,bufferedWriters, rig);
     }
 
     private void closeConnection() {
@@ -60,10 +60,14 @@ public class Server {
     }
 
     public static void main(String[] args){
+       test_start(args,"nonRig");
+    }
+    public static Server test_start(String[] args, String gameRig){
         Server server = new Server();
         server.initialize();
-        server.startGame();
+        server.startGame(gameRig);
         server.closeConnection();
+        return server;
     }
 }
 

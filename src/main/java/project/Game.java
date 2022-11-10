@@ -10,9 +10,10 @@ public class Game {
     ArrayList<Fortune> fortuneCards = new ArrayList<>();
     ArrayList<Fortune> discardDeck = new ArrayList<>();
     ArrayList<Player> players = new ArrayList<>();
+    String gameRig = "";
     //main game function
-    public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters){
-
+    public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters, String rig){
+        gameRig =rig;
         try {
             populateDeck();
 
@@ -684,6 +685,7 @@ public class Game {
     }
     public void drawFortuneCard(Player p){
         p.setFortuneCard(fortuneCards.remove(0));
+
     }
     public void shuffleDeck(){
         Collections.shuffle(fortuneCards);

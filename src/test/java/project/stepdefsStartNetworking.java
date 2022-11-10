@@ -2,29 +2,30 @@ package project;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import junit.framework.TestCase;
 
-public class stepdefsNetworking extends TestCase{
-    Server server = new Server();
+public class stepdefsStartNetworking extends TestCase{
+    Server server;
 
     ArrayList<Socket> sockets = new ArrayList<>();
     ArrayList<BufferedReader> brs = new ArrayList<>();
     ArrayList<BufferedWriter> bws = new ArrayList<>();
-    @Given("Start server")
-    public void start_server(){
-        Server server = new Server();
+    Thread t;
+    @Given("Start server {string}")
+    public void start_server(String rig){
+        t = new Thread(()->{
+            server = Server.test_start(new String[]{},rig);
+        });
+        t.start();
     }
     @And("Players are connected")
     public void connect_players(){
         try{
+            System.out.println("test");
             Socket s1 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
             Socket s2 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
             Socket s3 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
