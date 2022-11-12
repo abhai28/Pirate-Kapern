@@ -18,14 +18,13 @@ public class stepdefsStartNetworking extends TestCase{
     @Given("Start server {string}")
     public void start_server(String rig){
         t = new Thread(()->{
-            server = Server.test_start(new String[]{},rig);
+            server = Server.start_game(new String[]{},rig);
         });
         t.start();
     }
     @And("Players are connected")
     public void connect_players(){
         try{
-            System.out.println("test");
             Socket s1 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
             Socket s2 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
             Socket s3 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
