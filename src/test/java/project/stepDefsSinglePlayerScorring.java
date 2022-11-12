@@ -60,11 +60,6 @@ public class stepDefsSinglePlayerScorring extends TestCase{
 
         game.fixed_reroll(p,indexes,dice);
     }
-    @Then("Score is {int}")
-    public void score(int score) {
-        game.calculateDiceScore(p);
-        assertEquals(score, p.getScore());
-    }
     @And("Sorceress card is used")
     public void use_sorceress(){
         game.sorceressReroll(p);
@@ -122,6 +117,13 @@ public class stepDefsSinglePlayerScorring extends TestCase{
 
     @And("check sea battle {int}")
     public void checkSeaBattleBattle_score(int score) {
-        assertEquals(score,game.seaBattleScore(p));
+        int seaScore = game.seaBattleScore(p);
+        assertEquals(score,seaScore);
+        game.deductScore(p,seaScore);
+    }
+    @Then("Score is {int}")
+    public void score(int score) {
+        game.calculateDiceScore(p);
+        assertEquals(score, p.getScore());
     }
 }
