@@ -11,6 +11,7 @@ public class Game {
     ArrayList<Fortune> discardDeck = new ArrayList<>();
     ArrayList<Player> players = new ArrayList<>();
     String gameRig = "";
+    int turn = 1;
     //main game function
     public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters, String rig){
         gameRig =rig;
@@ -64,13 +65,6 @@ public class Game {
                     }
                     else {
                         rollDice(p);
-                        if(p.getPlayerID()==1){
-                            ArrayList<String> d = new ArrayList<>();
-                            for(int i=0;i<8;i++){
-                                d.add("Gold");
-                            }
-                            p.setPlayerDices(d);
-                        }
                         writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Dice");
                         writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), arrayDiceToString(p));
                         if (skullIsland(p)) {
@@ -138,10 +132,13 @@ public class Game {
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Dice");
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Your turn has ended!");
                 }
+                turn++;
             }
             Player winner = getWinner(players);
-            lastTurn(bufferedReaders,bufferedWriters,winner);
-            winner = getWinner(players);
+            if(winner.getPlayerID()==2 || winner.getPlayerID()==3){
+                lastTurn(bufferedReaders,bufferedWriters,winner);
+                winner = getWinner(players);
+            }
             for(Player p: players){
                 writeToBuffer(bufferedWriters.get(p.getPlayerID()-1),"Dice");
                 String winMsg = "The winner is player " + winner.getPlayerID()+ " with score "+winner.getScore()+".";
@@ -683,17 +680,56 @@ public class Game {
     }
 
     public void rollDice(Player p){
-        String[] values = {"Monkey","Sword","Parrot","Skull","Gold","Diamond"};
-        ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
-        ArrayList<String> playerDice = new ArrayList<>();
-        Random rand = new Random();
-        for(int i=0;i<8;i++){
-            playerDice.add(faceValues.get(rand.nextInt(faceValues.size())));
+        if(gameRig.equals("Rig 1")){
+            if(turn == 1){
+                if(p.getPlayerID()==1){
+                    String[] values = {"Sword","Sword","Sword","Skull","Sword","Sword","Sword","Sword"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+                else if(p.getPlayerID()==2){
+                    String[] values = {"Sword","Sword","Sword","Skull","Sword","Sword","Sword","Sword"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+                else if(p.getPlayerID()==3){
+                    String[] values = {"Monkey","Skull","Skull","Skull","Monkey","Monkey","Monkey","Monkey"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+            }
         }
-        p.setPlayerDices(playerDice);
+        else{
+            String[] values = {"Monkey","Sword","Parrot","Skull","Gold","Diamond"};
+            ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
+            ArrayList<String> playerDice = new ArrayList<>();
+            Random rand = new Random();
+            for(int i=0;i<8;i++){
+                playerDice.add(faceValues.get(rand.nextInt(faceValues.size())));
+            }
+            p.setPlayerDices(playerDice);
+        }
     }
     public void drawFortuneCard(Player p){
-        p.setFortuneCard(fortuneCards.remove(0));
+        if(gameRig.equals("Rig 1")){
+            if(turn == 1){
+                if(p.getPlayerID()==1){
+                    Fortune f = new Fortune("Captain",0);
+                    p.setFortuneCard(f);
+                }
+                else if(p.getPlayerID()==2){
+                    Fortune f = new Fortune("Skulls",1);
+                    p.setFortuneCard(f);
+                }
+                else if(p.getPlayerID()==3){
+                    Fortune f = new Fortune("Gold",0);
+                    p.setFortuneCard(f);
+                }
+            }
+        }
+        else{
+            p.setFortuneCard(fortuneCards.remove(0));
+        }
 
     }
     public void shuffleDeck(){
