@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import junit.framework.TestCase;
 
 public class stepdefsStartNetworking extends TestCase{
@@ -56,5 +57,65 @@ public class stepdefsStartNetworking extends TestCase{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @And("Player get message {string}")
+    public void playerGetMsgGameStart(String msg) {
+        try{
+            for(BufferedReader br : brs){
+                assertEquals(msg,br.readLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @And("Player get message {string} and {string}")
+    public void playerGetMessageAnd(String msg1, String msg2) {
+        try{
+            for(BufferedReader br : brs){
+                assertEquals(msg1,br.readLine());
+                assertEquals(msg2,br.readLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @And("Player {int} gets message {string} and {string}")
+    public void playerGetsMessageAnd(int id, String msg1, String msg2) {
+        try{
+            assertEquals(msg1,brs.get(id-1).readLine());
+            assertEquals(msg2,brs.get(id-1).readLine());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @And("Player {int} writes back {string}")
+    public void playerWritesBack(int id, String msg) {
+        try{
+            writeToBuffer(bws.get(id-1),msg);
+            assertEquals("no",brs.get(id-1).readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //helper function
+    public void writeToBuffer(BufferedWriter buffer, String msg){
+        try {
+            buffer.write(msg);
+            buffer.newLine();
+            buffer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Then("Close server")
+    public void closeServer() {
+        assertSame(t.getState(), Thread.State.TERMINATED);
     }
 }
