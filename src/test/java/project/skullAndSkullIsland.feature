@@ -21,7 +21,7 @@ Feature: Skull Island and Skull Fortune Card
     And Reroll is "Skull,Skull,Sword" "2,3,4"
     And Random reroll is "4,5,6,7"
     And Reroll is "Skull,Skull,Skull,Sword" "4,5,6,7"
-    And Get score deduction 900
+    And Get score deduction -900
     And Deduct score from players
     Then Check score is not negative 0
   Scenario: Test Row 110
@@ -32,7 +32,7 @@ Feature: Skull Island and Skull Fortune Card
     And Roll is "Skull,Skull,Skull,Skull,Skull,Monkey,Monkey,Monkey"
     And Random reroll is "5,6,7"
     And Reroll is "Skull,Skull,Gold" "5,6,7"
-    And Get score deduction 1400
+    And Get score deduction -1400
     And Deduct score from players
     Then Check score is not negative 0
   Scenario: Test Row 111
@@ -43,6 +43,6 @@ Feature: Skull Island and Skull Fortune Card
     And Roll is "Skull,Skull,Skull,Sword,Sword,Sword,Sword,Sword"
     And Random reroll is "3,4,5,6,7"
     And Reroll is "Gold,Gold,Gold,Gold,Gold" "3,4,5,6,7"
-    And Get score deduction 500
+    And Get score deduction -500
     And Deduct score from players
     Then Check score is not negative 0

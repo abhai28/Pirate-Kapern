@@ -153,7 +153,7 @@ public class Game {
     }
 
     public void deductScore (Player p, int deduction){
-        p.setScore(p.getScore() - deduction);
+        p.setScore(p.getScore() + deduction);
         if (p.getScore() < 0) {
             p.setScore(0);
         }
@@ -572,7 +572,7 @@ public class Game {
         if(p.getFortuneCard().getName().equals("Captain")){
             score = score *2;
         }
-        return score;
+        return score* -1;
     }
     public int playSkullIsland(Player p,BufferedReader br, BufferedWriter bw){
         try{

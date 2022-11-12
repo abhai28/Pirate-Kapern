@@ -119,4 +119,9 @@ public class stepDefsSinglePlayerScorring extends TestCase{
         assertEquals(score,p2.getScore());
         assertEquals(score,p3.getScore());
     }
+
+    @And("check sea battle {int}")
+    public void checkSeaBattleBattle_score(int score) {
+        assertEquals(score,game.seaBattleScore(p));
+    }
 }
