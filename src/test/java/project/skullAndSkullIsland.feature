@@ -8,5 +8,5 @@ Feature: Skull Island and Skull Fortune Card
     Then Score is <score>
     Examples: Test values
       | test_row | dice                                                         | score   | fortune           | fortune_value |
-      | 106      | "Skull,Sword,Sword,Sword,Sword,Sword,Sword,Sword"            | 0       | "Skull"           | 2             |
-      | 107      | "Skull,Skull,Sword,Sword,Sword,Sword,Sword,Sword"            | 0       | "Skull"           | 1             |
+      | 106      | "Skull,Sword,Sword,Sword,Sword,Sword,Sword,Sword"            | 0       | "Skulls"           | 2             |
+      | 107      | "Skull,Skull,Sword,Sword,Sword,Sword,Sword,Sword"            | 0       | "Skulls"           | 1             |
