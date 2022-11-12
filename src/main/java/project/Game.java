@@ -222,7 +222,7 @@ public class Game {
                     writeToBuffer(bw, arrayDiceToString(p));
                     multiplayerRe(p, br, bw);
                     int score = seaBattleScore(p);
-                    if(p.getScore()-score<0){
+                    if(p.getScore()+score<0){
                         p.setScore(0);
                     }
                     else{
