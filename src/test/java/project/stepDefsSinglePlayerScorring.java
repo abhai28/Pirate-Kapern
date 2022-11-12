@@ -11,10 +11,7 @@ import junit.framework.TestCase;
 
 public class stepDefsSinglePlayerScorring extends TestCase{
     Player p = new Player(1);
-    Player p2 = new Player(2);
-    Player p3 = new Player(3);
     Game game = new Game();
-    int skullIslandDeduction = 0;
 
     @Given("Play a turn")
     public void play_turn(){
@@ -99,24 +96,5 @@ public class stepDefsSinglePlayerScorring extends TestCase{
         for(int i=indexes.size()-1;i>=0;i--){
             p.removeTreasure(indexes.get(i));
         }
-    }
-
-    @And("Get score deduction {int}")
-    public void getScoreDeduction(int deduction) {
-        skullIslandDeduction = game.skullIslandDeduction(p,game.calculatePlayerSkulls(p));
-        assertEquals(deduction,skullIslandDeduction);
-    }
-
-    @And("Deduct score from players")
-    public void deductScoreFromPlayers() {
-        game.deductScore(p2,skullIslandDeduction);
-        game.deductScore(p3,skullIslandDeduction);
-    }
-
-    @Then("Check score is not negative {int}")
-    public void checkScoreIsNotNegative(int score) {
-        assertEquals(score,p.getScore());
-        assertEquals(score,p2.getScore());
-        assertEquals(score,p3.getScore());
     }
 }
