@@ -48,4 +48,13 @@ public class stepdefsStartNetworking extends TestCase{
             e.printStackTrace();
         }
     }
+    @And("Player get msg")
+    public void get_msg(){
+        try{
+            System.out.println(brs.get(0).readLine());
+            t.stop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
