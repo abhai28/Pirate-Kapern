@@ -11,37 +11,9 @@ public class Game {
     ArrayList<Fortune> discardDeck = new ArrayList<>();
     ArrayList<Player> players = new ArrayList<>();
     String gameRig = "";
-    ArrayList<String> rigDice = new ArrayList<>();
-    ArrayList<Fortune> rigCard = new ArrayList<>();
-    public void parseRig(String s){
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(s.split("/")));
-        System.out.println(list);
-        //Parse fortune
-        ArrayList<String> fort = new ArrayList<>(Arrays.asList(list.get(1).split(":")));
-        fort.remove(0);
-        ArrayList<String> k = new ArrayList<>(Arrays.asList(fort.get(0).split(",")));
-        for(String i : k){
-            ArrayList<String> n = new ArrayList<>(Arrays.asList(i.split(" ")));
-            Fortune f = new Fortune(n.get(0),Integer.parseInt(n.get(1)));
-            rigCard.add(f);
-        }
-        System.out.println(rigCard.get(1).getName()+" "+rigCard.get(1).getAmount());
-        //parse dice
-        ArrayList<String> d = new ArrayList<>(Arrays.asList(list.get(2).split(":")));
-        d.remove(0);
-        ArrayList<String> tmpD = new ArrayList<>(Arrays.asList(d.get(0).split("\\|")));
-        System.out.println(tmpD);
-
-    }
     //main game function
     public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters, String rig){
-        if(rig.equals("nonRig")){
-            gameRig = "nonRig";
-        }
-        else{
-            //parse the rig string
-            parseRig(rig);
-        }
+        gameRig =rig;
         try {
             populateDeck();
 
@@ -222,7 +194,7 @@ public class Game {
                     writeToBuffer(bw, arrayDiceToString(p));
                     multiplayerRe(p, br, bw);
                     int score = seaBattleScore(p);
-                    if(p.getScore()+score<0){
+                    if(p.getScore()-score<0){
                         p.setScore(0);
                     }
                     else{

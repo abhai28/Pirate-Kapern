@@ -59,15 +59,6 @@ public class stepDefsSinglePlayerScorring extends TestCase{
     }
     @Then("Score is {int}")
     public void score(int score) {
-        if(p.getFortuneCard().getName().equals("Sea Battle")){
-            int sea = game.seaBattleScore(p);
-            if(p.getScore()+sea<0){
-                p.setScore(0);
-            }
-            else{
-                p.setScore(p.getScore()+sea);
-            }
-        }
         game.calculateDiceScore(p);
         assertEquals(score, p.getScore());
     }

@@ -60,9 +60,9 @@ public class Server {
     }
 
     public static void main(String[] args){
-       start_game(args,"nonRig");
+       test_start(args,"nonRig");
     }
-    public static Server start_game(String[] args, String gameRig){
+    public static Server test_start(String[] args, String gameRig){
         Server server = new Server();
         server.initialize();
         server.startGame(gameRig);
