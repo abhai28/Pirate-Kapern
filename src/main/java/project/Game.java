@@ -79,10 +79,7 @@ public class Game {
                             int scoreDeduction = skullIslandDeduction(p, numSkulls);
                             for (int i = 0; i < players.size(); i++) {
                                 if (i != p.getPlayerID() - 1) {
-                                    players.get(i).setScore(players.get(i).getScore() - scoreDeduction);
-                                    if (players.get(i).getScore() < 0) {
-                                        players.get(i).setScore(0);
-                                    }
+                                    deductScore(players.get(i), scoreDeduction);
                                     writeToBuffer(bufferedWriters.get(i), "Score");
                                     writeToBuffer(bufferedWriters.get(i), "Skull");
                                     writeToBuffer(bufferedWriters.get(i), "Player " + p.getPlayerID() + " entered skull island and due to this you have lost " + scoreDeduction + " points.");
@@ -154,6 +151,14 @@ public class Game {
             e.printStackTrace();
         }
     }
+
+    public void deductScore (Player p, int deduction){
+        p.setScore(p.getScore() - deduction);
+        if (p.getScore() < 0) {
+            p.setScore(0);
+        }
+    }
+
     public void sorceressReroll(Player p){
         for (int i = 0; i < p.getPlayerDice().size(); i++) {
             if (p.getPlayerDice().get(i).equals("Skull")) {
@@ -623,6 +628,10 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return calculatePlayerSkulls(p);
+    }
+
+    public int calculatePlayerSkulls(Player p){
         int numSkulls = 0;
         for(String s : p.getPlayerDice()){
             if(s.equals("Skull")){
