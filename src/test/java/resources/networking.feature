@@ -83,7 +83,7 @@ Feature: Multiplayer Scenarios
     And Player 3 gets message "Dice" and "The winner is player 1 with score 3800."
     Then Close server
 
-  Scenario: Test Row 147
+  Scenario: Test Row 142
     Given Start server "Rig 3"
     And Players are connected
     And Player get message "Game Has Begun"
