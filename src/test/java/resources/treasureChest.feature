@@ -1,4 +1,4 @@
-Feature: Treasure Chest testing
+Feature: Treasure Chest
   Scenario: Test row 87
     Given Play a turn
     When Get fortune card

@@ -1,4 +1,4 @@
-Feature: Skull Island and Skull Fortune Card
+Feature: Skull Island and Skull Fortune Cards
   Scenario Outline: Test Row <test_row>
     Given Play a turn
     When Get fortune card

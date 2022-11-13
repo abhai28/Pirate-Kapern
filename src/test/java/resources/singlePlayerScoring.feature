@@ -1,4 +1,4 @@
-Feature: Single player plays game and rolls dice
+Feature: Single Player Scoring
   @SinglePlay
   Scenario Outline: Test row: <test_row>
     Given Play a turn

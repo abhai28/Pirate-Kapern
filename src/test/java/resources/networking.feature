@@ -1,4 +1,4 @@
-Feature: Multiplayer testing
+Feature: Multiplayer Scenarios
   Scenario: Test Row 130
     Given Start server "Rig 1"
     And Players are connected

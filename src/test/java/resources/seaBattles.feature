@@ -1,4 +1,4 @@
-Feature: Sea Battle single player scoring
+Feature: Sea Battles
   Scenario Outline: Test Row <test_row>
     Given Play a turn
     When Get fortune card

@@ -1,4 +1,4 @@
-Feature: Monkey business scoring
+Feature: Monkey business
   Scenario: Test Row 82
     Given Play a turn
     When Get fortune card

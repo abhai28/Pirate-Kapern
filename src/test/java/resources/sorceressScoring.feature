@@ -1,4 +1,4 @@
-Feature: Sorceress scoring
+Feature: Sorceress
   @Sorceress
   Scenario: Test Row 77
     Given Play a turn
