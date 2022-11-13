@@ -15,6 +15,7 @@ public class Game {
     //main game function
     public void start(ArrayList<Socket> sockets, ArrayList<BufferedReader> bufferedReaders, ArrayList<BufferedWriter> bufferedWriters, String rig){
         gameRig =rig;
+        boolean quitGame = false;
         try {
             populateDeck();
 
@@ -27,6 +28,9 @@ public class Game {
                 writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1),"Score: "+p.getScore());
             }
             while (!determineWinners()) {
+                if(quitGame==true){
+                    break;
+                }
                 if (fortuneCards.size() <= 0) {
                     populateDeck();
                     shuffleDeck();
@@ -42,6 +46,12 @@ public class Game {
                     }
                 }
                 for (Player p : players) {
+                    if(gameRig.equals("Rig 4")){
+                        if(p.getPlayerID()==3){
+                            quitGame = true;
+                            break;
+                        }
+                    }
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Dice");
                     writeToBuffer(bufferedWriters.get(p.getPlayerID() - 1), "Your turn has started!");
                     if(p.getFortuneCard().getName().equals("Sea Battle")){
