@@ -3,6 +3,7 @@ package project;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -106,6 +107,12 @@ public class stepdefsStartNetworking extends TestCase{
 
     @Then("Close server")
     public void closeServer() {
-        assertSame(t.getState(), Thread.State.TERMINATED);
+        try{
+            TimeUnit.MICROSECONDS.sleep(500);
+            t.interrupt();
+            assertSame(t.getState(), Thread.State.TERMINATED);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
