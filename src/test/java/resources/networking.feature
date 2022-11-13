@@ -119,4 +119,37 @@ Feature: Multiplayer Scenarios
     And Player 3 gets message "Dice" and "The winner is player 1 with score 9000."
     Then Close server
 
+  Scenario: Test Row 147
+    Given Start server "Rig 4"
+    And Players are connected
+    And Player get message "Game Has Begun"
+    And Player get message "Score" and "Score: 0"
+    And Player 1 gets message "Fortune" and "Fortune Card: Gold"
+    And Player 2 gets message "Fortune" and "Fortune Card: Sorceress"
+    And Player 3 gets message "Fortune" and "Fortune Card: Gold"
+    And Player 1 gets message "Dice" and "Your turn has started!"
+    And Player 1 gets message "Dice" and "1: Skull 2: Skull 3: Sword 4: Sword 5: Sword 6: Sword 7: Sword 8: Sword "
+    And Player 1 gets message "Reroll" and "Would you like to reroll the dices? Yes or No"
+    And Player 1 writes back "No"
+    And Player 1 gets message "Score" and "Score: 1100"
+    And Player 1 gets message "Dice" and "Your turn has ended!"
+    And Player 2 gets message "Dice" and "Your turn has started!"
+    And Player 2 gets message "Dice" and "1: Skull 2: Skull 3: Skull 4: Skull 5: Skull 6: Skull 7: Skull 8: Gold "
+    And Player 2 gets message "Sorceress" and "Would you like to use your Sorceress card to reroll a skull? Yes or No"
+    And Player 2 writes "Yes"
+    And Player 2 gets message "Dice" and "1: Parrot 2: Skull 3: Skull 4: Skull 5: Skull 6: Skull 7: Skull 8: Gold "
+    And Player 2 gets message "Skull Island" and "You have rolled 6 skulls and have entered The Island of Skulls."
+    And Player 2 gets message "continue" and "If you would like to reroll enter Yes or else enter anything."
+    And Player 2 writes back "yes" and gets back "pass"
+    And Player 2 gets message "1: Skull 2: Skull 3: Skull 4: Skull 5: Skull 6: Skull 7: Skull 8: Skull " and "no"
+    And Player 2 gets message "Max number of skulls rolled" and "done"
+    And Player 1 gets message "Score" and "Skull"
+    And Player 1 gets message "Player 2 entered skull island and due to this you have lost -800 points." and "Score: 300"
+    And Player 3 gets message "Score" and "Skull"
+    And Player 3 gets message "Player 2 entered skull island and due to this you have lost -800 points." and "Score: 0"
+    And Player 2 gets message "Score" and "Score: 0"
+    And Player 2 gets message "Dice" and "Your turn has ended!"
+    Then Close server
+
+
 
