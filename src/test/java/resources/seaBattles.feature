@@ -26,7 +26,7 @@ Feature: Sea Battles
     And check sea battle <battle_score>
     Then Score is <score>
     Examples: Test Values
-      | test_row |fortune       | fortune_values | score | dice                                                      | dice_index     | reroll_dice                | battle_score |
+      | test_row | fortune      | fortune_values | score | dice                                                      | dice_index     | reroll_dice                | battle_score |
       | 115      | "Sea Battle" | 3              | 0     | "Skull,Skull,Parrot,Parrot,Parrot,Parrot,Sword,Sword"     | "2,3,4,5"      | "Skull,Skull,Skull,Skull"  | -500         |
       | 118      | "Sea Battle" | 2              | 500   | "Monkey,Skull,Monkey,Monkey,Parrot,Parrot,Monkey,Sword"   | "4,5"          | "Skull,Sword"              | 300          |
       | 121      | "Sea Battle" | 3              | 0     | "Monkey,Skull,Monkey,Monkey,Skull,Sword,Monkey,Sword"     | "1,2,3,6"      | "Skull,Skull,Sword,Sword"  | -500         |
