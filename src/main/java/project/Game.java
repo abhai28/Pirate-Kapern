@@ -699,6 +699,42 @@ public class Game {
                 }
             }
         }
+        else if(gameRig.equals("Rig 2")){
+            if(turn == 1){
+                if(p.getPlayerID()==1){
+                    String[] values = {"Sword","Sword","Sword","Skull","Sword","Sword","Sword","Sword"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+                else if(p.getPlayerID()==2){
+                    String[] values = {"Skull","Monkey","Monkey","Skull","Monkey","Monkey","Monkey","Skull"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+                else if(p.getPlayerID()==3){
+                    String[] values = {"Skull","Skull","Skull","Skull","Parrot","Parrot","Skull","Skull"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+            }
+            else if(turn ==2){
+                if(p.getPlayerID()==1){
+                    String[] values = {"Monkey","Monkey","Monkey","Monkey","Parrot","Parrot","Parrot","Parrot"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+                else if(p.getPlayerID()==2){
+                    String[] values = {"Skull","Monkey","Monkey","Skull","Monkey","Monkey","Monkey","Skull"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+                else if(p.getPlayerID()==3){
+                    String[] values = {"Skull","Skull","Monkey","Monkey","Monkey","Monkey","Monkey","Monkey"};
+                    ArrayList<String> dice = new ArrayList<>(Arrays.asList(values));
+                    p.setPlayerDices(dice);
+                }
+            }
+        }
         else{
             String[] values = {"Monkey","Sword","Parrot","Skull","Gold","Diamond"};
             ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
@@ -723,6 +759,36 @@ public class Game {
                 }
                 else if(p.getPlayerID()==3){
                     Fortune f = new Fortune("Gold",0);
+                    p.setFortuneCard(f);
+                }
+            }
+        }
+        else if(gameRig.equals("Rig 2")){
+            if(turn == 1){
+                if(p.getPlayerID()==1){
+                    Fortune f = new Fortune("Captain",0);
+                    p.setFortuneCard(f);
+                }
+                else if(p.getPlayerID()==2){
+                    Fortune f = new Fortune("Gold",0);
+                    p.setFortuneCard(f);
+                }
+                else if(p.getPlayerID()==3){
+                    Fortune f = new Fortune("Captain",0);
+                    p.setFortuneCard(f);
+                }
+            }
+            else if(turn == 2){
+                if(p.getPlayerID()==1){
+                    Fortune f = new Fortune("Gold",0);
+                    p.setFortuneCard(f);
+                }
+                else if(p.getPlayerID()==2){
+                    Fortune f = new Fortune("Captain",0);
+                    p.setFortuneCard(f);
+                }
+                else if(p.getPlayerID()==3){
+                    Fortune f = new Fortune("Skulls",1);
                     p.setFortuneCard(f);
                 }
             }

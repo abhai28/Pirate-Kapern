@@ -115,4 +115,14 @@ public class stepdefsStartNetworking extends TestCase{
             e.printStackTrace();
         }
     }
+
+    @And("Player {int} writes back {string} and gets back {string}")
+    public void playerWritesBackAndGetsBack(int id, String write, String receive) {
+        try{
+            writeToBuffer(bws.get(id-1),write);
+            assertEquals(receive,brs.get(id-1).readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
