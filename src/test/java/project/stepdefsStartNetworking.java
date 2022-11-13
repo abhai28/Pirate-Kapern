@@ -94,21 +94,11 @@ public class stepdefsStartNetworking extends TestCase{
         }
     }
 
-    //helper function
-    public void writeToBuffer(BufferedWriter buffer, String msg){
-        try {
-            buffer.write(msg);
-            buffer.newLine();
-            buffer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Then("Close server")
     public void closeServer() {
         try{
             TimeUnit.MICROSECONDS.sleep(500);
+            close_client();
             t.interrupt();
             assertSame(t.getState(), Thread.State.TERMINATED);
         } catch (InterruptedException e) {
@@ -123,6 +113,32 @@ public class stepdefsStartNetworking extends TestCase{
             assertEquals(receive,brs.get(id-1).readLine());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    //helper functions
+    public void writeToBuffer(BufferedWriter buffer, String msg){
+        try {
+            buffer.write(msg);
+            buffer.newLine();
+            buffer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void close_client(){
+        try {
+            for(BufferedReader br : brs){
+                br.close();
+            }
+            for(BufferedWriter bw : bws){
+                bw.close();
+            }
+            for(Socket s : sockets){
+                s.close();
+            }
+        } catch (IOException ioException) {
+            System.out.println(ioException.getMessage());
         }
     }
 }
