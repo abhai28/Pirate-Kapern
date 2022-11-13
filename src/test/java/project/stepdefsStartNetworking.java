@@ -26,7 +26,6 @@ public class stepdefsStartNetworking extends TestCase{
     @And("Players are connected")
     public void connect_players(){
         try{
-            System.out.println("test");
             Socket s1 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
             Socket s2 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
             Socket s3 = new Socket("localhost",Config.GAME_SERVER_PORT_NUMBER);
@@ -45,15 +44,6 @@ public class stepdefsStartNetworking extends TestCase{
             bws.add(bw1);
             bws.add(bw2);
             bws.add(bw3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @And("Player get msg")
-    public void get_msg(){
-        try{
-            System.out.println(brs.get(0).readLine());
-            t.stop();
         } catch (IOException e) {
             e.printStackTrace();
         }
