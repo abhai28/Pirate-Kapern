@@ -695,6 +695,14 @@ public class Game {
     }
 
     public void rollDice(Player p){
+        String[] value = {"Monkey","Sword","Parrot","Skull","Gold","Diamond"};
+        ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(value));
+        ArrayList<String> playerDice = new ArrayList<>();
+        Random rand = new Random();
+        for(int i=0;i<8;i++){
+            playerDice.add(faceValues.get(rand.nextInt(faceValues.size())));
+        }
+        p.setPlayerDices(playerDice);
         if(gameRig.equals("Rig 1")){
             if(turn == 1){
                 if(p.getPlayerID()==1){
@@ -776,18 +784,9 @@ public class Game {
                 }
             }
         }
-        else{
-            String[] values = {"Monkey","Sword","Parrot","Skull","Gold","Diamond"};
-            ArrayList<String> faceValues = new ArrayList<>(Arrays.asList(values));
-            ArrayList<String> playerDice = new ArrayList<>();
-            Random rand = new Random();
-            for(int i=0;i<8;i++){
-                playerDice.add(faceValues.get(rand.nextInt(faceValues.size())));
-            }
-            p.setPlayerDices(playerDice);
-        }
     }
     public void drawFortuneCard(Player p){
+        p.setFortuneCard(fortuneCards.remove(0));
         if(gameRig.equals("Rig 1")){
             if(turn == 1){
                 if(p.getPlayerID()==1){
@@ -855,9 +854,6 @@ public class Game {
                     p.setFortuneCard(f);
                 }
             }
-        }
-        else{
-            p.setFortuneCard(fortuneCards.remove(0));
         }
 
     }
