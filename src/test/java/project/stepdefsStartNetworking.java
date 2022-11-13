@@ -116,6 +116,11 @@ public class stepdefsStartNetworking extends TestCase{
         }
     }
 
+    @And("Player {int} writes {string}")
+    public void playerWrites(int id, String msg) {
+        writeToBuffer(bws.get(id-1),msg);
+    }
+
     //helper functions
     public void writeToBuffer(BufferedWriter buffer, String msg){
         try {
@@ -141,4 +146,5 @@ public class stepdefsStartNetworking extends TestCase{
             System.out.println(ioException.getMessage());
         }
     }
+
 }

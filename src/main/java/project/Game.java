@@ -627,6 +627,12 @@ public class Game {
                         done = true;
                         writeToBuffer(bw,"done");
                     }
+                    else if(newCount==8){
+                        writeToBuffer(bw,"no");
+                        writeToBuffer(bw,"Max number of skulls rolled");
+                        done = true;
+                        writeToBuffer(bw,"done");
+                    }
                     else{
                         writeToBuffer(bw,"yes");
                     }
